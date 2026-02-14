@@ -143,7 +143,7 @@ export default function SecretWar() {
                         </a>
 
                         <a
-                            href="https://secret-war-experience-1.netlify.app/"
+                            href="https://secretwarinteractive.netlify.app/"
                             target="_blank"
                             rel="noopener noreferrer"
                             className="inline-flex justify-center items-center px-8 py-4 border border-[#ededed] text-sm font-light uppercase tracking-widest text-[#ededed] transition-all duration-300 hover:bg-[#ededed] hover:text-[#111]"
