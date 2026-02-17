@@ -47,9 +47,9 @@ export default function Navigation() {
             </AnimatePresence>
 
             {/* Bottom Bar */}
-            <div className="fixed bottom-0 left-0 w-full z-50 flex justify-between items-end py-6 px-8 pointer-events-auto text-[#ededed] bg-black/40 backdrop-blur-xl border-t border-white/10 shadow-2xl transition-all duration-500 hover:opacity-100 opacity-0">
+            <div className="fixed bottom-0 left-0 w-full z-50 flex justify-between items-end py-4 px-4 md:py-6 md:px-8 pointer-events-auto text-[#ededed] bg-black/40 backdrop-blur-xl border-t border-white/10 shadow-2xl transition-all duration-500 opacity-100 md:opacity-0 md:hover:opacity-100">
                 {/* Left Title */}
-                <h1 className="text-2xl md:text-3xl font-bold tracking-tighter pointer-events-auto z-50">
+                <h1 className="text-xl md:text-3xl font-bold tracking-tighter pointer-events-auto z-50">
                     TODD BURLESON
                 </h1>
 
