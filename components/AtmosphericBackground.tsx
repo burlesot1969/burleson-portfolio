@@ -54,7 +54,7 @@ export default function AtmosphericBackground() {
             {images.map((img) => (
                 <div
                     key={img.id}
-                    className={`absolute bottom-0 border border-white/30 ${img.width}`}
+                    className={`absolute bottom-0 ${img.width}`}
                     style={{
                         left: img.left,
                         mixBlendMode: img.blendMode as any,
@@ -68,8 +68,8 @@ export default function AtmosphericBackground() {
                             src={img.src}
                             alt=""
                             fill
-                            className="object-cover saturate-[2.5] brightness-125" // "Hyper-vibrant"
-                            priority={img.id < 5}
+                            className="object-cover saturate-[2.5] brightness-125 border border-white/30" // "Hyper-vibrant" with border
+                            priority // Force immediate load for all to prevent blinking
                         />
                     </div>
                 </div>
