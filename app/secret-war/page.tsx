@@ -171,105 +171,20 @@ export default function SecretWar() {
                         </p>
                     </div>
 
-                    {/* Resources Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                        {/* Card 1: THE BLUEPRINT */}
+                    {/* Educator Resources CTA */}
+                    <div className="flex flex-col items-center justify-center mt-12 bg-white/5 border border-white/20 p-12 text-center">
+                        <h4 className="text-2xl font-serif mb-6 text-white">Get the Complete Educator Resources Pack</h4>
+                        <p className="text-lg font-light text-gray-300 max-w-3xl mb-10">
+                            Includes The Blueprint roadmap, a 20-day Teacher Companion pacing guide, Student Field Notes workbook, History & STEM modules, Book Club frameworks, and primary source historical documents.
+                        </p>
                         <a
-                            href="/00_start_here.pdf"
+                            href="https://forms.gle/et4LTXFCE2fMifUm7"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="group block p-8 border border-white hover:bg-white/5 transition-all duration-300 bg-white/5"
+                            className="inline-flex justify-center items-center px-10 py-5 bg-white text-black text-sm font-sans font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-white/20"
                         >
-                            <div className="flex justify-between items-start mb-4">
-                                <h4 className="text-lg font-sans font-bold tracking-wide text-white">THE BLUEPRINT (START HERE)</h4>
-                                <span className="text-xl opacity-50 group-hover:opacity-100 transition-opacity">↓</span>
-                            </div>
-                            <p className="text-lg font-serif text-gray-300 group-hover:text-white transition-colors">
-                                Your roadmap for navigating the unit.
-                            </p>
+                            REQUEST FREE ACCESS
                         </a>
-
-                        {/* Card 2: THE TEACHER COMPANION */}
-                        <a
-                            href="/01_teacher_companion.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group block p-8 border border-white/20 hover:border-white transition-all duration-300 bg-transparent"
-                        >
-                            <div className="flex justify-between items-start mb-4">
-                                <h4 className="text-lg font-sans font-bold tracking-wide">THE TEACHER COMPANION</h4>
-                                <span className="text-xl opacity-50 group-hover:opacity-100 transition-opacity">↓</span>
-                            </div>
-                            <p className="text-lg font-serif text-gray-300 group-hover:text-white transition-colors">
-                                A 20-day pacing guide with chapter summaries, literary analysis, and bell-ringer prompts.
-                            </p>
-                        </a>
-
-                        {/* Card 3: STUDENT FIELD NOTES */}
-                        <a
-                            href="/02_student_workbook.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group block p-8 border border-white/20 hover:border-white transition-all duration-300 bg-transparent"
-                        >
-                            <div className="flex justify-between items-start mb-4">
-                                <h4 className="text-lg font-sans font-bold tracking-wide">STUDENT FIELD NOTES</h4>
-                                <span className="text-xl opacity-50 group-hover:opacity-100 transition-opacity">↓</span>
-                            </div>
-                            <p className="text-lg font-serif text-gray-300 group-hover:text-white transition-colors">
-                                An immersive workbook for tracking character arcs, evidence, and thematic development.
-                            </p>
-                        </a>
-
-                        {/* Card 4: HISTORY & STEM MODULES */}
-                        <a
-                            href="/03_resource_pack.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group block p-8 border border-white/20 hover:border-white transition-all duration-300 bg-transparent"
-                        >
-                            <div className="flex justify-between items-start mb-4">
-                                <h4 className="text-lg font-sans font-bold tracking-wide">HISTORY & STEM MODULES</h4>
-                                <span className="text-xl opacity-50 group-hover:opacity-100 transition-opacity">↓</span>
-                            </div>
-                            <p className="text-lg font-serif text-gray-300 group-hover:text-white transition-colors">
-                                STEM modules on radiation and invisibility, plus primary source history lessons.
-                            </p>
-                        </a>
-
-                        {/* Card 5: BOOK CLUB FRAMEWORK */}
-                        <a
-                            href="/04_book_club_guide.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group block p-8 border border-white/20 hover:border-white transition-all duration-300 bg-transparent"
-                        >
-                            <div className="flex justify-between items-start mb-4">
-                                <h4 className="text-lg font-sans font-bold tracking-wide">BOOK CLUB FRAMEWORK</h4>
-                                <span className="text-xl opacity-50 group-hover:opacity-100 transition-opacity">↓</span>
-                            </div>
-                            <p className="text-lg font-serif text-gray-300 group-hover:text-white transition-colors">
-                                Discussion frameworks focusing on ethics, friendship, and social-emotional connections.
-                            </p>
-                        </a>
-
-                        {/* Card 6: PRIMARY SOURCE: KEN'S LETTER */}
-                        <a
-                            href="/05_kens_letter.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="group block p-8 border border-white/20 hover:border-white transition-all duration-300 bg-transparent"
-                        >
-                            <div className="flex justify-between items-start mb-4">
-                                <h4 className="text-lg font-sans font-bold tracking-wide">PRIMARY SOURCE: KEN’S LETTER</h4>
-                                <span className="text-xl opacity-50 group-hover:opacity-100 transition-opacity">↓</span>
-                            </div>
-                            <p className="text-lg font-serif text-gray-300 group-hover:text-white transition-colors">
-                                Authentic historical documents that bring the era to life.
-                            </p>
-                        </a>
-
                     </div>
                 </div>
             </section>
