@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import Header from '@/components/Header';
+import VisitorGlobe from '@/components/VisitorGlobe';
 import { motion } from 'framer-motion';
 
 export default function About() {
@@ -86,6 +87,31 @@ export default function About() {
                     />
                 </div>
 
+
+            </div>
+
+            {/* Readers Around the World Section */}
+            <div className="w-full max-w-7xl mx-auto px-6 pb-32 flex flex-col items-center">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="flex flex-col items-center mb-12"
+                >
+                    <h3 className="text-xs md:text-sm font-sans uppercase tracking-[0.3em] text-amber-500/80 mb-4 flex items-center gap-3">
+                        <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                        Live Global Intel
+                    </h3>
+                    <h2 className="text-3xl md:text-4xl font-serif text-[#ededed]">Readers Around the World</h2>
+                    <p className="text-gray-400 mt-4 max-w-2xl text-center font-serif text-lg">
+                        Tracking incoming frequencies and active operatives exploring the archives globally.
+                    </p>
+                </motion.div>
+
+                <div className="w-full max-w-4xl mx-auto">
+                    <VisitorGlobe />
+                </div>
             </div>
 
             <Navigation />
