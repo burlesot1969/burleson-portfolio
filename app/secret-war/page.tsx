@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import Header from '@/components/Header';
 import { motion } from 'framer-motion';
+import EducatorCarousel from '@/components/EducatorCarousel';
 
 export default function SecretWar() {
     return (
@@ -118,7 +119,7 @@ export default function SecretWar() {
 
                     {/* Buttons: Now here in the right column */}
                     <motion.div
-                        className="flex flex-col md:flex-row gap-4 w-full md:w-auto"
+                        className="flex flex-col md:flex-row gap-4 w-full"
                         variants={{
                             hidden: { opacity: 0, y: 20 },
                             visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
@@ -128,7 +129,7 @@ export default function SecretWar() {
                             href="https://www.amazon.com/Secret-War-Todd-Burleson/dp/B0GKWV6RDN"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex justify-center items-center px-8 py-4 bg-white text-black text-sm font-sans font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-white/20"
+                            className="flex-1 inline-flex justify-center items-center px-6 py-4 bg-white text-black text-xs md:text-sm font-sans font-bold uppercase tracking-widest transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(230,208,88,0.5)] hover:bg-[#e6d058] text-center"
                         >
                             ORDER THE BOOK
                         </a>
@@ -137,23 +138,59 @@ export default function SecretWar() {
                             href="/sample.pdf"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex justify-center items-center px-8 py-4 border border-[#ededed] text-sm font-light uppercase tracking-widest text-[#ededed] transition-all duration-300 hover:bg-[#ededed] hover:text-[#111]"
+                            className="flex-1 inline-flex justify-center items-center px-6 py-4 border border-[#ededed] text-xs md:text-sm font-sans font-bold uppercase tracking-widest text-[#ededed] transition-all duration-300 hover:bg-[#ededed] hover:text-[#111] hover:scale-[1.02] text-center"
                         >
-                            Read Sample
+                            READ SAMPLE
                         </a>
 
                         <a
                             href="https://secretwarinteractive.netlify.app/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex justify-center items-center px-8 py-4 border border-[#ededed] text-sm font-light uppercase tracking-widest text-[#ededed] transition-all duration-300 hover:bg-[#ededed] hover:text-[#111]"
+                            className="flex-1 inline-flex justify-center items-center px-6 py-4 border border-[#ededed] text-xs md:text-sm font-sans font-bold uppercase tracking-widest text-[#ededed] transition-all duration-300 hover:bg-[#ededed] hover:text-[#111] hover:scale-[1.02] text-center"
                         >
-                            Launch Experience
+                            LAUNCH EXPERIENCE
                         </a>
                     </motion.div>
 
                 </motion.div>
             </div>
+
+            {/* VIDEO TRAILER SECTION */}
+            <section className="relative z-10 w-full bg-[#0a0a0a] py-24 px-6 border-y border-white/5">
+                <div className="max-w-5xl mx-auto">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 0.8 }}
+                        className="text-center mb-12"
+                    >
+                        <h3 className="text-sm font-sans uppercase tracking-widest text-[#ededed] opacity-60 mb-4">
+                            OFFICIAL TRAILER
+                        </h3>
+                        <h2 className="text-3xl md:text-5xl font-serif text-[#ededed]">
+                            Secrets Have Costs
+                        </h2>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                        transition={{ duration: 1, ease: "easeOut" }}
+                        className="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl drop-shadow-[0_0_30px_rgba(255,255,255,0.05)] border border-white/10 group bg-black"
+                    >
+                        <iframe
+                            src="https://www.youtube.com/embed/tUpviHAOO2w?si=BRPnnSBzvG3n73aX&rel=0&modestbranding=1"
+                            title="The Secret War Book Trailer"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowFullScreen
+                            className="absolute top-0 left-0 w-full h-full transition-opacity duration-1000"
+                        ></iframe>
+                    </motion.div>
+                </div>
+            </section>
 
             {/* CURRICULUM ARCHIVE SECTION */}
             <section className="relative z-10 w-full bg-neutral-900 py-16 pb-48 px-6 text-[#ededed]">
@@ -171,6 +208,11 @@ export default function SecretWar() {
                         </p>
                     </div>
 
+                    {/* Educator Carousel */}
+                    <div className="mb-16">
+                        <EducatorCarousel />
+                    </div>
+
                     {/* Educator Resources CTA */}
                     <div className="flex flex-col items-center justify-center mt-12 bg-white/5 border border-white/20 p-12 text-center">
                         <h4 className="text-2xl font-serif mb-6 text-white">Get the Complete Educator Resources Pack</h4>
@@ -181,7 +223,7 @@ export default function SecretWar() {
                             href="https://forms.gle/et4LTXFCE2fMifUm7"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex justify-center items-center px-10 py-5 bg-white text-black text-sm font-sans font-bold uppercase tracking-widest transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-white/20"
+                            className="inline-flex justify-center items-center px-10 py-5 bg-white text-black text-sm font-sans font-bold uppercase tracking-widest transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(230,208,88,0.5)] hover:bg-[#e6d058]"
                         >
                             REQUEST FREE ACCESS
                         </a>

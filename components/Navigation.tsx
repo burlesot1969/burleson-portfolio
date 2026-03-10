@@ -10,12 +10,23 @@ const navItems = [
     { label: 'THE SECRET WAR', href: '/secret-war' },
     { label: 'JOURNAL', href: 'https://whereimaginationtakesflight.substack.com/', external: true },
     { label: 'ABOUT', href: '/about' },
-    { label: 'CONTACT', href: '/contact' },
+    { label: 'CONTACT', href: '', action: 'copyEmail' },
 ];
 
 export default function Navigation() {
     const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
+    const [copied, setCopied] = useState(false);
+
+    const handleCopyEmail = async () => {
+        try {
+            await navigator.clipboard.writeText('toddburlesonwonders@gmail.com');
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+            console.error('Failed to copy text: ', err);
+        }
+    };
 
     return (
         <>
@@ -29,19 +40,37 @@ export default function Navigation() {
                         transition={{ duration: 0.4, ease: "easeInOut" }}
                         className="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl flex flex-col items-center justify-center space-y-8 md:hidden"
                     >
-                        {navItems.map((item) => (
-                            <Link
-                                key={item.label}
-                                href={item.href}
-                                onClick={() => setIsOpen(false)}
-                                target={item.external ? "_blank" : undefined}
-                                rel={item.external ? "noopener noreferrer" : undefined}
-                                className={`text-3xl font-bold tracking-tighter text-[#ededed] hover:text-white transition-colors ${pathname === item.href ? 'opacity-100' : 'opacity-60'
-                                    }`}
-                            >
-                                {item.label}
-                            </Link>
-                        ))}
+                        {navItems.map((item) => {
+                            if (item.action === 'copyEmail') {
+                                return (
+                                    <button
+                                        key={item.label}
+                                        onClick={(e) => {
+                                            e.preventDefault();
+                                            handleCopyEmail();
+                                            // Optional: setIsOpen(false) if we want to close menu after copying
+                                            // But maybe keep it open so they see "COPIED"
+                                        }}
+                                        className="text-3xl font-bold tracking-tighter text-[#ededed] hover:text-white transition-colors opacity-60"
+                                    >
+                                        {copied ? 'COPIED!' : item.label}
+                                    </button>
+                                );
+                            }
+                            return (
+                                <Link
+                                    key={item.label}
+                                    href={item.href}
+                                    onClick={() => setIsOpen(false)}
+                                    target={item.external ? "_blank" : undefined}
+                                    rel={item.external ? "noopener noreferrer" : undefined}
+                                    className={`text-3xl font-bold tracking-tighter text-[#ededed] hover:text-white transition-colors ${pathname === item.href ? 'opacity-100' : 'opacity-60'
+                                        }`}
+                                >
+                                    {item.label}
+                                </Link>
+                            );
+                        })}
                     </motion.div>
                 )}
             </AnimatePresence>
@@ -57,6 +86,20 @@ export default function Navigation() {
                 <nav className="hidden md:flex gap-6 pointer-events-auto">
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
+                        if (item.action === 'copyEmail') {
+                            return (
+                                <button
+                                    key={item.label}
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        handleCopyEmail();
+                                    }}
+                                    className="text-sm md:text-base font-medium tracking-wide transition-all duration-300 opacity-50 hover:opacity-100 uppercase"
+                                >
+                                    {copied ? 'COPIED!' : item.label}
+                                </button>
+                            );
+                        }
                         return (
                             <Link
                                 key={item.label}
