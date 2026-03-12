@@ -78,7 +78,7 @@ export default function About() {
                 */}
                 <div className="order-1 lg:order-2 flex justify-center w-full">
                     <Image
-                        src="/images/author_photo.jpeg"
+                        src="/images/new_author_photo.jpeg"
                         alt="Todd Burleson Portrait"
                         width={1200}
                         height={1600}
