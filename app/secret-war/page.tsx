@@ -118,10 +118,10 @@ export default function SecretWar() {
                     <div className={styles.heroVisual}>
                         <div className={styles.imageWrapper} ref={tiltWrapperRef}>
                             <Image
-                                src="/images/cover.jpg"
+                                src="/images/the_secret_war_cover.png"
                                 alt="The Secret War Book Cover"
-                                width={600}
-                                height={900}
+                                width={450}
+                                height={675}
                                 className={styles.coverImage}
                                 priority
                             />
