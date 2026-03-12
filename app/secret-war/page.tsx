@@ -142,7 +142,7 @@ export default function SecretWar() {
                                 className={`${styles.cardImageWrapper} cursor-pointer hover:ring-2 hover:ring-[#e1ff00] transition-all`}
                                 onClick={() => setExpandedImage('/images/jamie.png')}
                             >
-                                <Image src="/images/jamie.png" alt="Jamie Infographic" width={800} height={800} className={styles.characterImage} />
+                                <Image src="/images/jamie.png" alt="Jamie Infographic" width={1000} height={1000} className={styles.characterImage} />
                             </div>
                             <div className={styles.cardContent}>
                                 <h3>JAMIE</h3>
@@ -158,7 +158,7 @@ export default function SecretWar() {
                                 className={`${styles.cardImageWrapper} cursor-pointer hover:ring-2 hover:ring-[#e1ff00] transition-all`}
                                 onClick={() => setExpandedImage('/images/billy.png')}
                             >
-                                <Image src="/images/billy.png" alt="Billy Infographic" width={800} height={800} className={styles.characterImage} />
+                                <Image src="/images/billy.png" alt="Billy Infographic" width={1000} height={1000} className={styles.characterImage} />
                             </div>
                             <div className={styles.cardContent}>
                                 <h3>BILLY</h3>
@@ -174,7 +174,7 @@ export default function SecretWar() {
                                 className={`${styles.cardImageWrapper} cursor-pointer hover:ring-2 hover:ring-[#e1ff00] transition-all`}
                                 onClick={() => setExpandedImage('/images/kenji.png')}
                             >
-                                <Image src="/images/kenji.png" alt="Kenji Infographic" width={800} height={800} className={styles.characterImage} />
+                                <Image src="/images/kenji.png" alt="Kenji Infographic" width={1000} height={1000} className={styles.characterImage} />
                             </div>
                             <div className={styles.cardContent}>
                                 <h3>KENJI SATO</h3>
