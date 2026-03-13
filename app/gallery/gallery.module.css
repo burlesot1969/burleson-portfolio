@@ -1,0 +1,135 @@
+.galleryContainer {
+    --bg-color: #0d1117; /* Matches Secret War */
+    --text-main: #c9d1d9;
+    --accent: #e1ff00;
+    --font-sans: 'Inter', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    padding-bottom: 8rem;
+    position: relative;
+    overflow: hidden; /* For parallax bounds */
+}
+
+/* Background Noise overlay similar to secret war */
+.noiseOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Header / Statement area */
+.headerSection {
+    padding: 10rem 2rem 4rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+.galleryTitle {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+}
+
+.accent {
+    color: var(--accent);
+}
+
+.artistStatement {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-main);
+    font-weight: 300;
+    margin-bottom: 0;
+}
+
+/* Parallax Grid */
+.parallaxContainer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: flex-start;
+    /* Ensure there's space for elements to scroll *into* */
+    padding-bottom: 20vh;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    width: 100%;
+}
+
+.imageWrapper {
+    width: 100%;
+    position: relative;
+    border-radius: 4px; /* Slight roundness */
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    background-color: #111; /* fallback while loading */
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+/* Maintain aspect ratio nicely, but since it's abstract, let's allow images to determine height based on natural aspect or set a fixed wrapper */
+/* Some styling to make hover interactions nice */
+.imageWrapper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(225, 255, 0, 0);
+    transition: background 0.4s ease;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+}
+
+.imageWrapper:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 50px rgba(225, 255, 0, 0.1);
+}
+
+.imageWrapper:hover::after {
+    background: rgba(225, 255, 0, 0.2);
+}
+
+.photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .parallaxContainer {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .galleryTitle {
+        font-size: 3rem;
+    }
+
+    .artistStatement {
+        font-size: 1.1rem;
+    }
+}

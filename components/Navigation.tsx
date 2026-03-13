@@ -9,6 +9,7 @@ const navItems = [
     { label: 'WONDERS', href: '/' },
     { label: 'THE SECRET WAR', href: '/secret-war' },
     { label: 'JOURNAL', href: 'https://whereimaginationtakesflight.substack.com/', external: true },
+    { label: 'GALLERY', href: '/gallery' },
     { label: 'ABOUT', href: '/about' },
     { label: 'CONTACT', href: 'https://forms.gle/MjT4K7jUYiXTdttU7', external: true },
 ];
