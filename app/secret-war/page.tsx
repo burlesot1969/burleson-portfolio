@@ -99,21 +99,6 @@ export default function SecretWar() {
                         <h1 className={styles.heroTitle}>THE<br />SECRET<br /><span className={styles.accent}>WAR</span></h1>
                         <p className={styles.heroSubtitle}>Some days I feel invisible.</p>
 
-                        {/* Integrated Portfolio Buttons */}
-                        <div className={styles.heroActions}>
-                            <a href="https://www.amazon.com/Secret-War-Todd-Burleson/dp/B0GKWV6RDN" target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnPrimary}`}>
-                                ORDER THE BOOK
-                            </a>
-                            <a href="/sample.pdf" target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnOutline}`}>
-                                READ SAMPLE
-                            </a>
-                            <button onClick={() => scrollToSection('educator-resources')} className={`${styles.btn} ${styles.btnOutline}`}>
-                                EDUCATOR MATERIALS &darr;
-                            </button>
-                            <a href="https://secretwarinteractive.netlify.app/" target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnOutline}`}>
-                                LAUNCH EXPERIENCE &rarr;
-                            </a>
-                        </div>
                     </div>
                     <div className={styles.heroVisual}>
                         <div className={styles.imageWrapper} ref={tiltWrapperRef}>
@@ -127,6 +112,21 @@ export default function SecretWar() {
                             />
                             <div className={styles.scannerLine}></div>
                         </div>
+                    </div>
+                    {/* Integrated Portfolio Buttons */}
+                    <div className={styles.heroActions}>
+                        <a href="https://www.amazon.com/Secret-War-Todd-Burleson/dp/B0GKWV6RDN" target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnPrimary}`}>
+                            ORDER THE BOOK
+                        </a>
+                        <a href="/sample.pdf" target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnOutline}`}>
+                            READ SAMPLE
+                        </a>
+                        <button onClick={() => scrollToSection('educator-resources')} className={`${styles.btn} ${styles.btnOutline}`}>
+                            EDUCATOR MATERIALS &darr;
+                        </button>
+                        <a href="https://secretwarinteractive.netlify.app/" target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnOutline}`}>
+                            LAUNCH EXPERIENCE &rarr;
+                        </a>
                     </div>
                 </section>
 
