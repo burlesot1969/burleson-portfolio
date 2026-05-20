@@ -81,7 +81,7 @@ export default function SecretWarClient() {
                     playsInline
                     className={styles.smokeVideo}
                 >
-                    <source src="/videos/smoke.mp4" type="video/mp4" />
+                    <source src="/burleson-portfolio/videos/smoke.mp4" type="video/mp4" />
                 </video>
             </div>
 
@@ -121,7 +121,7 @@ export default function SecretWarClient() {
                         <a href="https://www.amazon.com/Secret-War-Todd-Burleson/dp/B0GKWV6RDN" target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnPrimary} ${styles.btnLarge}`}>
                             ORDER THE BOOK
                         </a>
-                        <a href="/sample.pdf" target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnOutline} ${styles.btnLarge}`}>
+                        <a href="/burleson-portfolio/sample.pdf" target="_blank" rel="noopener noreferrer" className={`${styles.btn} ${styles.btnOutline} ${styles.btnLarge}`}>
                             READ SAMPLE
                         </a>
                         <button onClick={() => scrollToSection('educator-resources')} className={`${styles.btn} ${styles.btnOutline} ${styles.btnLarge}`}>
