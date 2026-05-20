@@ -227,6 +227,145 @@ export default function SecretWarClient() {
                     </div>
                 </motion.section>
 
+                {/* Mission Reception & Reviews Section */}
+                <motion.section 
+                    initial={{ opacity: 0, y: 40 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.8 }}
+                    className={styles.receptionSection}
+                    id="reception"
+                >
+                    <div className={styles.receptionGrid}>
+                        {/* Video Review Column */}
+                        <div>
+                            <div className={styles.columnHeading}>
+                                <span>INTEL REPORT</span>
+                                <span className={styles.stampBadge}>DEBRIEFING VIDEO</span>
+                            </div>
+                            <div className={styles.videoReviewCard}>
+                                <div className={styles.videoMeta}>
+                                    <h3>5-Star Review by E Train Talks</h3>
+                                    <span className={styles.videoReviewer}>
+                                        REVIEWER: <span>Ethan Minton (E Train)</span> // Teen Literacy Advocate
+                                    </span>
+                                    <p className={styles.videoDescription}>
+                                        "Gripping, fast-paced, and expertly told through multiple points of view. 
+                                        A powerful and eye-opening debut that handles heavy themes like grief 
+                                        and the WWII home front with incredible sensitivity."
+                                    </p>
+                                </div>
+                                <div className={styles.videoWrapper}>
+                                    <iframe
+                                        src="https://www.youtube.com/embed/AhuNL1kEQ24?rel=0&modestbranding=1"
+                                        title="E Train Talks Book Review - The Secret War"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        allowFullScreen
+                                    ></iframe>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Text Reviews Column 1 */}
+                        <div>
+                            <div className={styles.columnHeading}>
+                                <span>FIELD COMMUNICATIONS</span>
+                                <span className={styles.stampBadge}>CUSTOMER REVIEWS</span>
+                            </div>
+                            <div className={styles.reviewsList}>
+                                {/* Review 1: John Dawson */}
+                                <div className={styles.reviewCard}>
+                                    <div className={styles.reviewHeader}>
+                                        <div>
+                                            <h4 className={styles.reviewerName}>John Dawson</h4>
+                                            <span className={styles.reviewerMeta}>Verified Purchase // May 14, 2026</span>
+                                        </div>
+                                        <span className={styles.verifiedBadge}>VERIFIED SOURCE</span>
+                                    </div>
+                                    <div className={styles.starRating}>★ ★ ★ ★ ★</div>
+                                    <div className={styles.reviewTitle}>"History brought to life"</div>
+                                    <p className={styles.reviewText}>
+                                        I loved this book. I recommend adults and children read. A part of our history brought to life through a fictional story. An excellent read. This book would be an excellent tool for teaching students about our history.
+                                    </p>
+                                </div>
+
+                                {/* Review 2: David Bean */}
+                                <div className={styles.reviewCard}>
+                                    <div className={styles.reviewHeader}>
+                                        <div>
+                                            <h4 className={styles.reviewerName}>David Bean</h4>
+                                            <span className={styles.reviewerMeta}>Verified Purchase // May 13, 2026</span>
+                                        </div>
+                                        <span className={styles.verifiedBadge}>VERIFIED SOURCE</span>
+                                    </div>
+                                    <div className={styles.starRating}>★ ★ ★ ★ ★</div>
+                                    <div className={styles.reviewTitle}>"Stimulates critical reading skills and humanizes history"</div>
+                                    <p className={styles.reviewText}>
+                                        If you are looking for a book that does not insult young readers but challenges their thinking and starts the process of using history and creative writing to grow their minds, here is a book to consider. History, mystery, and honesty are wrapped up in The Secret War by Todd Burleson.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Text Reviews Column 2 */}
+                        <div>
+                            <div className={styles.columnHeading}>
+                                <span>FIELD COMMUNICATIONS</span>
+                                <span className={styles.stampBadge}>CUSTOMER REVIEWS</span>
+                            </div>
+                            <div className={styles.reviewsList}>
+                                {/* Review 3: Cara Gorr */}
+                                <div className={styles.reviewCard}>
+                                    <div className={styles.reviewHeader}>
+                                        <div>
+                                            <h4 className={styles.reviewerName}>Cara Gorr</h4>
+                                            <span className={styles.reviewerMeta}>Verified Purchase // April 28, 2026</span>
+                                        </div>
+                                        <span className={styles.verifiedBadge}>VERIFIED SOURCE</span>
+                                    </div>
+                                    <div className={styles.starRating}>★ ★ ★ ★ ★</div>
+                                    <div className={styles.reviewTitle}>"Exciting tale based on true events!"</div>
+                                    <p className={styles.reviewText}>
+                                        The Secret War is a very thought provoking book of historical fiction. Though aimed towards a middle school audience, I would highly recommend it for adults as well. Read it with your child and discuss how it is important that we learn from our past, lest we make the same mistakes in the future.
+                                    </p>
+                                </div>
+
+                                {/* Review 4: Fuglefun */}
+                                <div className={styles.reviewCard}>
+                                    <div className={styles.reviewHeader}>
+                                        <div>
+                                            <h4 className={styles.reviewerName}>Fuglefun</h4>
+                                            <span className={styles.reviewerMeta}>Verified Purchase // April 27, 2026</span>
+                                        </div>
+                                        <span className={styles.verifiedBadge}>VERIFIED SOURCE</span>
+                                    </div>
+                                    <div className={styles.starRating}>★ ★ ★ ★ ★</div>
+                                    <div className={styles.reviewTitle}>"Captivating story filled with historical lessons"</div>
+                                    <p className={styles.reviewText}>
+                                        Danger, suspense, history, and secrets written for kids by an author who understands how to weave it all together. Teachers will love using this book to teach history in an captivating and immersive way.
+                                    </p>
+                                </div>
+
+                                {/* Review 5: Caleb */}
+                                <div className={styles.reviewCard}>
+                                    <div className={styles.reviewHeader}>
+                                        <div>
+                                            <h4 className={styles.reviewerName}>Caleb</h4>
+                                            <span className={styles.reviewerMeta}>Verified Purchase // May 13, 2026</span>
+                                        </div>
+                                        <span className={styles.verifiedBadge}>VERIFIED SOURCE</span>
+                                    </div>
+                                    <div className={styles.starRating}>★ ★ ★ ★ ★</div>
+                                    <div className={styles.reviewTitle}>"Not just for middle grade readers!"</div>
+                                    <p className={styles.reviewText}>
+                                        I’m not even a middle grade reader and I enjoyed this. The author kept me reading chapter by chapter! What a cool way to learn about a part of history I didn’t know about.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </motion.section>
+
                 {/* Briefing Section */}
                 <motion.section 
                     initial={{ opacity: 0, y: 40 }}
