@@ -10,6 +10,8 @@ const EMAIL = 'toddburlesonwonders@gmail.com';
 
 export default function Contact() {
     const [copied, setCopied] = useState(false);
+    const [copiedVisit, setCopiedVisit] = useState(false);
+    const [copiedConversation, setCopiedConversation] = useState(false);
 
     const handleCopy = async () => {
         try {
@@ -20,6 +22,22 @@ export default function Contact() {
             console.error('Failed to copy email:', err);
         }
     };
+
+    const handleCopyLink = async (e: React.MouseEvent, type: 'visit' | 'conversation') => {
+        try {
+            await navigator.clipboard.writeText(EMAIL);
+            if (type === 'visit') {
+                setCopiedVisit(true);
+                setTimeout(() => setCopiedVisit(false), 2000);
+            } else {
+                setCopiedConversation(true);
+                setTimeout(() => setCopiedConversation(false), 2000);
+            }
+        } catch (err) {
+            console.error('Failed to copy email:', err);
+        }
+    };
+
 
     return (
         <div className="relative min-h-screen w-full bg-[#111] text-[#ededed] overflow-hidden">
@@ -100,9 +118,10 @@ export default function Contact() {
                         </div>
                         <a
                             href={`mailto:${EMAIL}?subject=School%20Visit%20Inquiry`}
+                            onClick={(e) => handleCopyLink(e, 'visit')}
                             className="inline-block text-[11px] font-sans font-light uppercase tracking-[0.2em] border-b border-white/20 hover:border-[#ededed] transition-all duration-300 pb-1 mt-4 text-gray-300 hover:text-white"
                         >
-                            INQUIRE ABOUT A VISIT &rarr;
+                            {copiedVisit ? 'Email Address Copied!' : 'INQUIRE ABOUT A VISIT →'}
                         </a>
                     </div>
 
@@ -116,9 +135,10 @@ export default function Contact() {
                         </p>
                         <a
                             href={`mailto:${EMAIL}?subject=Interview%2FPanel%20Inquiry`}
+                            onClick={(e) => handleCopyLink(e, 'conversation')}
                             className="inline-block text-[11px] font-sans font-light uppercase tracking-[0.2em] border-b border-white/20 hover:border-[#ededed] transition-all duration-300 pb-1 mt-4 text-gray-300 hover:text-white"
                         >
-                            START A CONVERSATION &rarr;
+                            {copiedConversation ? 'Email Address Copied!' : 'START A CONVERSATION →'}
                         </a>
                     </div>
                 </motion.div>
@@ -129,3 +149,4 @@ export default function Contact() {
         </div>
     );
 }
+
