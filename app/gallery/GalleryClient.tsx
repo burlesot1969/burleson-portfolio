@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Header from '@/components/Header';
 import styles from './gallery.module.css';
 
-// Using high-quality placeholder abstracts from Unsplash
-const photos = [
+// 1. Color ICM Photos (original set)
+const icmPhotos = [
     { id: 1, src: "/images/gallery/abstract-01.jpg", width: 800, height: 1200, alt: "Abstract 01" },
     { id: 2, src: "/images/gallery/abstract-02.JPG", width: 800, height: 800, alt: "Abstract 02" },
     { id: 3, src: "/images/gallery/abstract-03.JPG", width: 800, height: 1000, alt: "Abstract 03" },
@@ -29,33 +29,37 @@ const photos = [
     { id: 18, src: "/images/gallery/abstract-18.JPG", width: 800, height: 800, alt: "Abstract 18" },
 ];
 
+// 2. Custom Black & White Photos
+const monochromePhotos = [
+    { id: 101, src: "/images/gallery/monochrome/mono - 1.jpeg", width: 5712, height: 4284, alt: "Monochrome 01" },
+    { id: 102, src: "/images/gallery/monochrome/mono - 2.jpeg", width: 4284, height: 5712, alt: "Monochrome 02" },
+    { id: 103, src: "/images/gallery/monochrome/mono - 3.jpeg", width: 3024, height: 4032, alt: "Monochrome 03" },
+    { id: 104, src: "/images/gallery/monochrome/mono - 4.jpeg", width: 3024, height: 4032, alt: "Monochrome 04" },
+    { id: 105, src: "/images/gallery/monochrome/mono - 5.jpeg", width: 3024, height: 4032, alt: "Monochrome 05" },
+    { id: 106, src: "/images/gallery/monochrome/mono - 6.jpeg", width: 3024, height: 4032, alt: "Monochrome 06" },
+    { id: 107, src: "/images/gallery/monochrome/mono - 7.jpeg", width: 3024, height: 4032, alt: "Monochrome 07" },
+    { id: 108, src: "/images/gallery/monochrome/mono - 8.jpeg", width: 3024, height: 4032, alt: "Monochrome 08" },
+    { id: 109, src: "/images/gallery/monochrome/mono - 9.jpeg", width: 3024, height: 4032, alt: "Monochrome 09" },
+    { id: 110, src: "/images/gallery/monochrome/mono - 10.jpeg", width: 4032, height: 3024, alt: "Monochrome 10" },
+    { id: 111, src: "/images/gallery/monochrome/mono - 11.jpeg", width: 3024, height: 4032, alt: "Monochrome 11" },
+    { id: 112, src: "/images/gallery/monochrome/mono - 12.jpeg", width: 3024, height: 4032, alt: "Monochrome 12" },
+    { id: 113, src: "/images/gallery/monochrome/mono - 13.jpeg", width: 2998, height: 3998, alt: "Monochrome 13" },
+    { id: 114, src: "/images/gallery/monochrome/mono - 14.jpeg", width: 4284, height: 5712, alt: "Monochrome 14" },
+];
+
 export default function GalleryClient() {
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+    // Navigation State: 'landing' shows split portal, 'icm' or 'bw' loads active subgallery
+    const [activeCategory, setActiveCategory] = useState<'landing' | 'icm' | 'bw'>('landing');
+    const [expandedImage, setExpandedImage] = useState<string | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    const handleNext = (e?: React.MouseEvent) => {
-        if (e) e.stopPropagation();
-        if (selectedIndex !== null) {
-            setSelectedIndex((selectedIndex + 1) % photos.length);
-        }
-    };
-
-    const handlePrev = (e?: React.MouseEvent) => {
-        if (e) e.stopPropagation();
-        if (selectedIndex !== null) {
-            setSelectedIndex((selectedIndex - 1 + photos.length) % photos.length);
-        }
-    };
-
-    // Escape Key, Arrow Keys & Body Scroll Lock for Modal
+    // Escape Key & Body Scroll Lock for Modal
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape') setSelectedIndex(null);
-            if (e.key === 'ArrowRight') handleNext();
-            if (e.key === 'ArrowLeft') handlePrev();
+            if (e.key === 'Escape') setExpandedImage(null);
         };
         
-        if (selectedIndex !== null) {
+        if (expandedImage) {
             document.body.style.overflow = 'hidden';
             window.addEventListener('keydown', handleKeyDown);
         } else {
@@ -66,23 +70,87 @@ export default function GalleryClient() {
             document.body.style.overflow = '';
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [selectedIndex]);
+    }, [expandedImage]);
 
-    // Parallax Scroll logic
+    // Parallax Scroll logic (always running, binds to containerRef when active)
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ['start end', 'end start'] // Begin when top of container hits bottom of viewport, end when bottom hits top
+        offset: ['start end', 'end start']
     });
 
-    // The left column moves up a bit faster (negative Y)
     const yLeft = useTransform(scrollYProgress, [0, 1], [100, -300]);
-    // The right column slightly slower or opposite
     const yRight = useTransform(scrollYProgress, [0, 1], [250, -100]);
 
-    // Split photos into two columns
-    const leftColumnPhotos = photos.filter((_, i) => i % 2 === 0);
-    const rightColumnPhotos = photos.filter((_, i) => i % 2 !== 0);
+    // Split active array into columns
+    const activePhotos = activeCategory === 'icm' ? icmPhotos : monochromePhotos;
+    const leftColumnPhotos = activePhotos.filter((_, i) => i % 2 === 0);
+    const rightColumnPhotos = activePhotos.filter((_, i) => i % 2 !== 0);
 
+    // Render Split-Screen Landing Selector
+    if (activeCategory === 'landing') {
+        return (
+            <div className={styles.galleryContainer}>
+                <div className={styles.noiseOverlay}></div>
+                <Header />
+
+                <main className={styles.portalContainer}>
+                    {/* ICM Panel */}
+                    <div 
+                        className={styles.portalPanel}
+                        onClick={() => setActiveCategory('icm')}
+                    >
+                        <div className={styles.panelBackground}>
+                            <Image 
+                                src="/images/gallery/abstract-05.jpg"
+                                alt="ICM Gallery Cover"
+                                fill
+                                className="object-cover"
+                                priority
+                            />
+                        </div>
+                        <div className={styles.panelOverlay}></div>
+                        <div className={styles.panelContent}>
+                            <span className={styles.panelSubtitle}>Collection I</span>
+                            <h1 className={styles.panelTitle}>ICM</h1>
+                            <p className={styles.panelDescription}>
+                                Painting with light to capture how a moment actually feels. A study of motion, abstraction, and hidden textures.
+                            </p>
+                            <span className={styles.panelLink}>Enter Gallery</span>
+                        </div>
+                    </div>
+
+                    {/* Monochrome Panel */}
+                    <div 
+                        className={styles.portalPanel}
+                        onClick={() => setActiveCategory('bw')}
+                    >
+                        <div className={styles.panelBackground}>
+                            <Image 
+                                src="/images/gallery/monochrome/mono - 2.jpeg"
+                                alt="Monochrome Gallery Cover"
+                                fill
+                                className="object-cover"
+                                priority
+                            />
+                        </div>
+                        <div className={styles.panelOverlay}></div>
+                        <div className={styles.panelContent}>
+                            <span className={`${styles.panelSubtitle} ${styles.panelSubtitleMono}`}>Collection II</span>
+                            <h1 className={styles.panelTitle}>Monochrome</h1>
+                            <p className={styles.panelDescription}>
+                                Stripping away color to reveal the raw geometry of light, shadow, and quiet details.
+                            </p>
+                            <span className={`${styles.panelLink} ${styles.panelLinkMono}`}>Enter Gallery</span>
+                        </div>
+                    </div>
+                </main>
+
+                <Navigation />
+            </div>
+        );
+    }
+
+    // Render Active Grid Subgallery
     return (
         <div className={styles.galleryContainer}>
             <div className={styles.noiseOverlay}></div>
@@ -95,9 +163,27 @@ export default function GalleryClient() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
                     >
-                        <h1 className={styles.galleryTitle}>THE<br />GALLERY</h1>
+                        <button 
+                            className={styles.backButton}
+                            onClick={() => setActiveCategory('landing')}
+                        >
+                            <span>←</span> BACK TO COLLECTIONS
+                        </button>
+
+                        <h1 className={styles.galleryTitle}>
+                            {activeCategory === 'icm' ? (
+                                <>THE<br />ICM GALLERY</>
+                            ) : (
+                                <>THE<br />MONOCHROME</>
+                            )}
+                        </h1>
+
                         <p className={styles.artistStatement}>
-                            I use Intentional Camera Movement (ICM) to find the <strong>WONDER</strong> in the ordinary, painting with light to capture how a moment actually feels.
+                            {activeCategory === 'icm' ? (
+                                <>I use <strong>Intentional Camera Movement (ICM)</strong> to find the wonder in the ordinary, painting with light to capture how a moment actually feels.</>
+                            ) : (
+                                <>Stripping away color to explore the quiet architecture of <strong>light, shadow, and high contrast</strong> in abstract forms.</>
+                            )}
                         </p>
                     </motion.div>
                 </div>
@@ -114,7 +200,7 @@ export default function GalleryClient() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.8, ease: "easeOut" }}
-                                onClick={() => setSelectedIndex(photos.findIndex(p => p.id === photo.id))}
+                                onClick={() => setExpandedImage(photo.src)}
                             >
                                 <Image 
                                     src={photo.src}
@@ -139,7 +225,7 @@ export default function GalleryClient() {
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: "-50px" }}
                                 transition={{ duration: 0.8, ease: "easeOut" }}
-                                onClick={() => setSelectedIndex(photos.findIndex(p => p.id === photo.id))}
+                                onClick={() => setExpandedImage(photo.src)}
                             >
                                 <Image 
                                     src={photo.src}
@@ -156,92 +242,28 @@ export default function GalleryClient() {
             </main>
 
             {/* Image Expansion Modal */}
-            <AnimatePresence>
-                {selectedIndex !== null && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[10000] flex flex-col items-center justify-between p-6 bg-black/95 backdrop-blur-xl cursor-pointer select-none"
-                        onClick={() => setSelectedIndex(null)}
-                    >
-                        {/* Lightbox Header: Counter & Close */}
-                        <div className="w-full flex justify-between items-center z-10 max-w-7xl px-4 pt-4 text-white font-sans text-xs uppercase tracking-[0.2em] opacity-80 pointer-events-auto">
-                            <div>
-                                {String(selectedIndex + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}
-                            </div>
-                            <button
-                                className="hover:text-[#e1ff00] transition-colors duration-300"
-                                onClick={() => setSelectedIndex(null)}
-                            >
-                                CLOSE [✕]
-                            </button>
-                        </div>
-
-                        {/* Lightbox Body: Left Arrow, Image, Right Arrow */}
-                        <div className="relative w-full max-w-6xl h-[65vh] flex items-center justify-between my-auto px-4 gap-4">
-                            {/* Prev Button */}
-                            <button
-                                className="hidden md:flex text-white/50 hover:text-white transition-all duration-300 w-12 h-12 items-center justify-center border border-white/10 hover:border-white/30 rounded-full hover:scale-105 active:scale-95 bg-black/40 backdrop-blur-sm pointer-events-auto z-10"
-                                onClick={handlePrev}
-                                aria-label="Previous image"
-                            >
-                                ←
-                            </button>
-
-                            {/* Image Container with AnimatePresence for slide effect */}
-                            <div className="relative flex-1 h-full flex items-center justify-center overflow-hidden pointer-events-none">
-                                <AnimatePresence mode="popLayout" initial={false}>
-                                    <motion.img
-                                        key={selectedIndex}
-                                        src={photos[selectedIndex].src}
-                                        alt={photos[selectedIndex].alt}
-                                        initial={{ opacity: 0, x: 60 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: -60 }}
-                                        transition={{ duration: 0.25, ease: "easeInOut" }}
-                                        className="object-contain max-w-full max-h-full drop-shadow-2xl"
-                                    />
-                                </AnimatePresence>
-                            </div>
-
-                            {/* Next Button */}
-                            <button
-                                className="hidden md:flex text-white/50 hover:text-white transition-all duration-300 w-12 h-12 items-center justify-center border border-white/10 hover:border-white/30 rounded-full hover:scale-105 active:scale-95 bg-black/40 backdrop-blur-sm pointer-events-auto z-10"
-                                onClick={handleNext}
-                                aria-label="Next image"
-                            >
-                                →
-                            </button>
-                        </div>
-
-                        {/* Mobile Swipe / Tap Navigation & Title Footer */}
-                        <div className="w-full text-center pb-6 z-10 max-w-lg px-4 flex flex-col gap-2 pointer-events-auto">
-                            <div className="text-white text-sm font-sans font-medium tracking-widest uppercase opacity-90">
-                                {photos[selectedIndex].alt}
-                            </div>
-                            <div className="text-white/40 text-[10px] font-sans tracking-[0.2em] uppercase md:hidden mt-2">
-                                Tap side buttons below to navigate
-                            </div>
-                            {/* Mobile arrow controls */}
-                            <div className="flex justify-center gap-6 mt-4 md:hidden">
-                                <button
-                                    className="px-6 py-2 border border-white/10 text-white/60 hover:text-white rounded-full bg-black/30 text-xs tracking-widest uppercase active:scale-95"
-                                    onClick={handlePrev}
-                                >
-                                    PREV
-                                </button>
-                                <button
-                                    className="px-6 py-2 border border-white/10 text-white/60 hover:text-white rounded-full bg-black/30 text-xs tracking-widest uppercase active:scale-95"
-                                    onClick={handleNext}
-                                >
-                                    NEXT
-                                </button>
-                            </div>
-                        </div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+            {expandedImage && (
+                <div
+                    className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md cursor-pointer"
+                    onClick={() => setExpandedImage(null)}
+                >
+                    <div className="relative max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
+                        <button
+                            className="absolute -top-12 right-0 text-white hover:text-[#e1ff00] text-xl font-mono"
+                            aria-label="Close modal"
+                            onClick={() => setExpandedImage(null)}
+                        >
+                            [X] CLOSE
+                        </button>
+                        <motion.img
+                            layoutId={`gallery-image-${activePhotos.find(p => p.src === expandedImage)?.id}`}
+                            src={expandedImage}
+                            alt="Expanded Photo"
+                            className="object-contain max-w-full max-h-full drop-shadow-2xl"
+                        />
+                    </div>
+                </div>
+            )}
 
             <Navigation />
         </div>
