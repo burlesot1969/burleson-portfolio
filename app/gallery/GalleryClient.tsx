@@ -101,7 +101,7 @@ export default function GalleryClient() {
                     >
                         <div className={styles.panelBackground}>
                             <Image 
-                                src="/images/gallery/abstract-05.jpg"
+                                src="/images/gallery/icm-cover.jpg"
                                 alt="ICM Gallery Cover"
                                 fill
                                 className="object-cover"
@@ -126,7 +126,7 @@ export default function GalleryClient() {
                     >
                         <div className={styles.panelBackground}>
                             <Image 
-                                src="/images/gallery/monochrome/mono-2.jpeg"
+                                src="/images/gallery/mono-cover.jpeg"
                                 alt="Monochrome Gallery Cover"
                                 fill
                                 className="object-cover"
