@@ -156,33 +156,49 @@
     border-color: #ffffff;
 }
 
-/* Back Button */
-.backButton {
-    background: none;
-    border: none;
-    color: var(--text-main);
+/* Breadcrumb Navigation */
+.breadcrumb {
     font-family: var(--font-mono);
-    font-size: 0.85rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    cursor: pointer;
-    padding: 0.6rem 1.2rem;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 4px;
-    margin: 4rem auto 0;
+    margin-bottom: 4rem; /* Large gap below breadcrumb */
     display: flex;
+    justify-content: center;
     align-items: center;
-    gap: 0.6rem;
-    transition: all 0.3s ease;
-    position: relative;
-    z-index: 100;
+    gap: 0.8rem;
+    opacity: 0.55;
+    transition: opacity 0.3s ease;
 }
 
-.backButton:hover {
-    color: #ffffff;
-    border-color: #ffffff;
-    background-color: rgba(255, 255, 255, 0.05);
+.breadcrumb:hover {
+    opacity: 0.9;
 }
+
+.breadcrumbLink {
+    cursor: pointer;
+    color: var(--text-main);
+    transition: color 0.3s ease;
+}
+
+.breadcrumbLink:hover {
+    color: #ffffff;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.breadcrumbSeparator {
+    color: rgba(255, 255, 255, 0.25);
+}
+
+.breadcrumbCurrent {
+    color: var(--accent);
+}
+
+.breadcrumbCurrentMono {
+    color: #ffffff;
+}
+
 
 /* Header / Statement area */
 .headerSection {

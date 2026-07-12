@@ -31,20 +31,20 @@ const icmPhotos = [
 
 // 2. Custom Black & White Photos
 const monochromePhotos = [
-    { id: 101, src: "/images/gallery/monochrome/mono - 1.jpeg", width: 5712, height: 4284, alt: "Monochrome 01" },
-    { id: 102, src: "/images/gallery/monochrome/mono - 2.jpeg", width: 4284, height: 5712, alt: "Monochrome 02" },
-    { id: 103, src: "/images/gallery/monochrome/mono - 3.jpeg", width: 3024, height: 4032, alt: "Monochrome 03" },
-    { id: 104, src: "/images/gallery/monochrome/mono - 4.jpeg", width: 3024, height: 4032, alt: "Monochrome 04" },
-    { id: 105, src: "/images/gallery/monochrome/mono - 5.jpeg", width: 3024, height: 4032, alt: "Monochrome 05" },
-    { id: 106, src: "/images/gallery/monochrome/mono - 6.jpeg", width: 3024, height: 4032, alt: "Monochrome 06" },
-    { id: 107, src: "/images/gallery/monochrome/mono - 7.jpeg", width: 3024, height: 4032, alt: "Monochrome 07" },
-    { id: 108, src: "/images/gallery/monochrome/mono - 8.jpeg", width: 3024, height: 4032, alt: "Monochrome 08" },
-    { id: 109, src: "/images/gallery/monochrome/mono - 9.jpeg", width: 3024, height: 4032, alt: "Monochrome 09" },
-    { id: 110, src: "/images/gallery/monochrome/mono - 10.jpeg", width: 4032, height: 3024, alt: "Monochrome 10" },
-    { id: 111, src: "/images/gallery/monochrome/mono - 11.jpeg", width: 3024, height: 4032, alt: "Monochrome 11" },
-    { id: 112, src: "/images/gallery/monochrome/mono - 12.jpeg", width: 3024, height: 4032, alt: "Monochrome 12" },
-    { id: 113, src: "/images/gallery/monochrome/mono - 13.jpeg", width: 2998, height: 3998, alt: "Monochrome 13" },
-    { id: 114, src: "/images/gallery/monochrome/mono - 14.jpeg", width: 4284, height: 5712, alt: "Monochrome 14" },
+    { id: 101, src: "/images/gallery/monochrome/mono-1.jpeg", width: 5712, height: 4284, alt: "Monochrome 01" },
+    { id: 102, src: "/images/gallery/monochrome/mono-2.jpeg", width: 4284, height: 5712, alt: "Monochrome 02" },
+    { id: 103, src: "/images/gallery/monochrome/mono-3.jpeg", width: 3024, height: 4032, alt: "Monochrome 03" },
+    { id: 104, src: "/images/gallery/monochrome/mono-4.jpeg", width: 3024, height: 4032, alt: "Monochrome 04" },
+    { id: 105, src: "/images/gallery/monochrome/mono-5.jpeg", width: 3024, height: 4032, alt: "Monochrome 05" },
+    { id: 106, src: "/images/gallery/monochrome/mono-6.jpeg", width: 3024, height: 4032, alt: "Monochrome 06" },
+    { id: 107, src: "/images/gallery/monochrome/mono-7.jpeg", width: 3024, height: 4032, alt: "Monochrome 07" },
+    { id: 108, src: "/images/gallery/monochrome/mono-8.jpeg", width: 3024, height: 4032, alt: "Monochrome 08" },
+    { id: 109, src: "/images/gallery/monochrome/mono-9.jpeg", width: 3024, height: 4032, alt: "Monochrome 09" },
+    { id: 110, src: "/images/gallery/monochrome/mono-10.jpeg", width: 4032, height: 3024, alt: "Monochrome 10" },
+    { id: 111, src: "/images/gallery/monochrome/mono-11.jpeg", width: 3024, height: 4032, alt: "Monochrome 11" },
+    { id: 112, src: "/images/gallery/monochrome/mono-12.jpeg", width: 3024, height: 4032, alt: "Monochrome 12" },
+    { id: 113, src: "/images/gallery/monochrome/mono-13.jpeg", width: 2998, height: 3998, alt: "Monochrome 13" },
+    { id: 114, src: "/images/gallery/monochrome/mono-14.jpeg", width: 4284, height: 5712, alt: "Monochrome 14" },
 ];
 
 export default function GalleryClient() {
@@ -126,7 +126,7 @@ export default function GalleryClient() {
                     >
                         <div className={styles.panelBackground}>
                             <Image 
-                                src="/images/gallery/monochrome/mono - 2.jpeg"
+                                src="/images/gallery/monochrome/mono-2.jpeg"
                                 alt="Monochrome Gallery Cover"
                                 fill
                                 className="object-cover"
@@ -163,12 +163,19 @@ export default function GalleryClient() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1 }}
                     >
-                        <button 
-                            className={styles.backButton}
-                            onClick={() => setActiveCategory('landing')}
-                        >
-                            <span>←</span> BACK TO COLLECTIONS
-                        </button>
+                        {/* Elegant Breadcrumb Navigation */}
+                        <div className={styles.breadcrumb}>
+                            <span 
+                                className={styles.breadcrumbLink} 
+                                onClick={() => setActiveCategory('landing')}
+                            >
+                                COLLECTIONS
+                            </span>
+                            <span className={styles.breadcrumbSeparator}>/</span>
+                            <span className={`${styles.breadcrumbCurrent} ${activeCategory === 'bw' ? styles.breadcrumbCurrentMono : ''}`}>
+                                {activeCategory === 'icm' ? 'ICM' : 'MONOCHROME'}
+                            </span>
+                        </div>
 
                         <h1 className={styles.galleryTitle}>
                             {activeCategory === 'icm' ? (
