@@ -152,7 +152,7 @@ export default function GalleryClient() {
 
     // Render Active Grid Subgallery
     return (
-        <div className={`${styles.galleryContainer} ${activeCategory === 'bw' ? styles.monochromeTheme : ''}`}>
+        <div className={styles.galleryContainer}>
             <div className={styles.noiseOverlay}></div>
             <Header />
 
@@ -256,7 +256,7 @@ export default function GalleryClient() {
                 >
                     <div className="relative max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
                         <button
-                            className={`absolute -top-12 right-0 text-white text-xl font-mono ${activeCategory === 'bw' ? 'hover:text-zinc-400' : 'hover:text-[#e1ff00]'}`}
+                            className="absolute -top-12 right-0 text-white hover:text-zinc-400 text-xl font-mono"
                             aria-label="Close modal"
                             onClick={() => setExpandedImage(null)}
                         >
