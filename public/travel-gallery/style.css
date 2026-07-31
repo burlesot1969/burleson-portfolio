@@ -1,0 +1,316 @@
+/* Modern CSS Design System - Dark Elegant Theme */
+:root {
+  --bg-primary: #070a12;
+  --bg-card: #151c2e;
+  --accent-blue: #38bdf8;
+  --accent-purple: #818cf8;
+  --accent-gradient: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --border-light: rgba(255, 255, 255, 0.18);
+  --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.9);
+  --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  font-family: var(--font-body);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Fullscreen Collage Main Container */
+.fullscreen-collage-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: radial-gradient(circle at 50% 50%, rgba(30, 41, 59, 0.6) 0%, rgba(7, 10, 18, 0.96) 100%);
+}
+
+/* Header Badge Floating at Top */
+.header-badge {
+  position: absolute;
+  top: 1.25rem;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid var(--border-light);
+  padding: 0.55rem 1.5rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  transition: transform var(--transition-fast);
+}
+
+.header-badge:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-blue);
+}
+
+.badge-title {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text-main);
+}
+
+.badge-hint {
+  font-size: 0.85rem;
+  color: var(--accent-blue);
+}
+
+/* Base Collage Wrapper - 4:5 Vertical Poster Aspect Ratio */
+.collage-wrapper {
+  position: relative;
+  display: inline-block;
+  max-width: 96vw;
+  max-height: 88vh;
+  aspect-ratio: 4 / 5;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--border-light);
+  background: #000;
+  transition: box-shadow var(--transition-smooth);
+}
+
+.collage-wrapper:hover {
+  box-shadow: 0 35px 70px rgba(0, 0, 0, 0.95);
+}
+
+/* Base Collage Image */
+.base-collage-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* 3x5 Grid Hotspots Overlay */
+.grid-hotspots-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 100%;
+  height: 100%;
+  z-index: 50;
+}
+
+/* 15 Individual Cell Hotspots */
+.grid-cell-hotspot {
+  position: relative;
+  cursor: pointer;
+  z-index: 60;
+  pointer-events: auto;
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  transition: background-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hover effect on grid cell */
+.grid-cell-hotspot:hover {
+  background-color: rgba(56, 189, 248, 0.3);
+  border: 2px solid var(--accent-blue);
+  box-shadow: inset 0 0 35px rgba(56, 189, 248, 0.65);
+  z-index: 70;
+}
+
+.grid-cell-hotspot::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: 0.6rem;
+  right: 0.6rem;
+  background: rgba(15, 23, 42, 0.92);
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-blue);
+  padding: 0.25rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.grid-cell-hotspot:hover::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fullscreen Lightbox Modal (Ultra-Smooth Scale & Fade) */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+              visibility 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lightbox.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.lightbox-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(7, 10, 18, 0.95);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  cursor: pointer;
+}
+
+/* Lightbox Close Button ('X') */
+.lightbox-close {
+  position: absolute;
+  top: 1.75rem;
+  right: 1.75rem;
+  z-index: 2010;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--border-light);
+  color: var(--text-main);
+  font-size: 2.25rem;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.6);
+}
+
+.lightbox-close:hover {
+  background: rgba(239, 68, 68, 0.9);
+  transform: scale(1.12) rotate(90deg);
+  box-shadow: 0 8px 30px rgba(239, 68, 68, 0.6);
+}
+
+/* Lightbox Content Container */
+.lightbox-content {
+  position: relative;
+  z-index: 2005;
+  max-width: 94vw;
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transform: scale(0.92) translateY(10px);
+  transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lightbox.active .lightbox-content {
+  transform: scale(1) translateY(0);
+}
+
+.lightbox-image-wrapper {
+  position: relative;
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 35px 80px -15px rgba(0, 0, 0, 0.95);
+  border: 1px solid var(--border-light);
+  background: #000;
+  cursor: pointer;
+}
+
+.lightbox-image-wrapper img {
+  max-width: 92vw;
+  max-height: 80vh;
+  object-fit: contain;
+  display: block;
+  cursor: pointer;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lightbox-image-wrapper:hover img {
+  transform: scale(1.015);
+}
+
+.click-to-close-hint {
+  position: absolute;
+  bottom: 0.85rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(15, 23, 42, 0.9);
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-blue);
+  padding: 0.4rem 0.9rem;
+  border-radius: 9999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  pointer-events: none;
+  opacity: 0.85;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  white-space: nowrap;
+}
+
+.lightbox-image-wrapper:hover .click-to-close-hint {
+  opacity: 1;
+  background: var(--accent-blue);
+  color: #0f172a;
+}
+
+.lightbox-caption {
+  margin-top: 1.25rem;
+  text-align: center;
+  color: var(--text-main);
+  cursor: pointer;
+}
+
+.lightbox-caption h3 {
+  font-family: var(--font-serif);
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.lightbox-caption p {
+  color: var(--accent-blue);
+  font-size: 1.05rem;
+  margin-top: 0.25rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .badge-hint { display: none; }
+  .lightbox-close { top: 1rem; right: 1rem; width: 48px; height: 48px; font-size: 1.8rem; }
+  .click-to-close-hint { font-size: 0.72rem; padding: 0.3rem 0.7rem; }
+  .lightbox-caption h3 { font-size: 1.35rem; }
+  .lightbox-caption p { font-size: 0.9rem; }
+}
