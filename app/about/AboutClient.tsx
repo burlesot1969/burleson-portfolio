@@ -3,7 +3,6 @@
 import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import Header from '@/components/Header';
-import VisitorGlobe from '@/components/VisitorGlobe';
 import { motion } from 'framer-motion';
 
 export default function AboutClient() {
@@ -18,7 +17,7 @@ export default function AboutClient() {
               - Min-Height: Full screen feel
             */}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-7xl mx-auto px-6 pt-[150px] pb-[300px] gap-16 lg:gap-20 items-center min-h-screen overflow-y-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-2 w-full max-w-7xl mx-auto px-6 pt-[140px] pb-32 gap-16 lg:gap-20 items-center min-h-screen overflow-y-auto">
 
                 {/* 
                   Left Column (Desktop) / Bottom (Mobile): Bio Text
@@ -58,7 +57,7 @@ export default function AboutClient() {
                                 visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
                             }}
                         >
-                            Todd Burleson is an author, educator, and a school librarian. By day, he inspires students to find their own wonders in books. By night he explores the intersection of history and imagination.
+                            Todd Burleson is a curious creator. He doesn&apos;t limit himself to just one fascination or medium. He simply enjoys creating. He is an author, artist, photographer, advocate, and community builder.
                         </motion.p>
                         <motion.p
                             variants={{
@@ -67,6 +66,15 @@ export default function AboutClient() {
                             }}
                         >
                             Todd is a creator driven by a simple philosophy: that beauty is everywhere, especially in the ordinary. A former professional photographer with a decade of darkroom experience, he learned early on that the most profound stories often live in the quietest details. Today, that same attentive gaze shapes his writing and art. Whether he is weaving historical fiction, composing abstract collages, or capturing light through a lens, Todd invites us to slow down, look closer, and discover the wonders hiding in plain sight.
+                        </motion.p>
+                        <motion.p
+                            variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } }
+                            }}
+                            className="text-base md:text-lg font-sans font-bold tracking-[0.25em] uppercase text-white/90 pt-2"
+                        >
+                            WALK • WANDER • WONDER
                         </motion.p>
                     </div>
                 </motion.div>
@@ -89,30 +97,6 @@ export default function AboutClient() {
                 </div>
 
 
-            </div>
-
-            {/* Readers Around the World Section */}
-            <div className="w-full max-w-7xl mx-auto px-6 pb-32 flex flex-col items-center">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                    className="flex flex-col items-center mb-12"
-                >
-                    <h3 className="text-xs md:text-sm font-sans uppercase tracking-[0.3em] text-amber-500/80 mb-4 flex items-center gap-3">
-                        <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                        Live Global Intel
-                    </h3>
-                    <h2 className="text-3xl md:text-4xl font-serif text-[#ededed]">Readers Around the World</h2>
-                    <p className="text-gray-400 mt-4 max-w-2xl text-center font-serif text-lg">
-                        Tracking incoming frequencies and active operatives exploring the archives globally.
-                    </p>
-                </motion.div>
-
-                <div className="w-full max-w-4xl mx-auto">
-                    <VisitorGlobe />
-                </div>
             </div>
 
             <Navigation />

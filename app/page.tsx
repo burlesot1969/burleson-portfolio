@@ -5,6 +5,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import AtmosphericBackground from "@/components/AtmosphericBackground";
+import KenoshaFeatureCard from "@/components/KenoshaFeatureCard";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 export default function Home() {
@@ -30,12 +31,15 @@ export default function Home() {
               duration: 90, // Slower for majesty
             }}
           >
-            WONDER IS THE BEGINNING OF WISDOM • LOOK CLOSER • SEE THE UNSEEN •
-            WONDER IS THE BEGINNING OF WISDOM • LOOK CLOSER • SEE THE UNSEEN •
+            WALK • WANDER • WONDER • WALK • WANDER • WONDER • WALK • WANDER • WONDER •
+            WALK • WANDER • WONDER • WALK • WANDER • WONDER • WALK • WANDER • WONDER •
           </motion.div>
         </div>
 
       </section>
+
+      {/* Featured Project Spotlight Card */}
+      <KenoshaFeatureCard />
 
       <Navigation />
     </main>

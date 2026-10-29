@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
     title: "Todd Burleson | Author & Maker",
-    description: "Portfolio of Todd Burleson - Author, Maker, and School Librarian.",
+    description: "Portfolio of Todd Burleson - Author, Artist, Photographer, and Community Builder.",
     icons: {
         icon: '/images/logo.png',
     },

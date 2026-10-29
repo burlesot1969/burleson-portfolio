@@ -47,9 +47,12 @@ const monochromePhotos = [
     { id: 114, src: "/images/gallery/monochrome/mono-14.jpeg", width: 4284, height: 5712, alt: "Monochrome 14" },
 ];
 
-export default function GalleryClient() {
-    // Navigation State: 'landing' shows split portal, 'icm' or 'bw' loads active subgallery
-    const [activeCategory, setActiveCategory] = useState<'landing' | 'icm' | 'bw'>('landing');
+interface SubGalleryViewProps {
+    activeCategory: 'icm' | 'bw';
+    onBack: () => void;
+}
+
+function SubGalleryView({ activeCategory, onBack }: SubGalleryViewProps) {
     const [expandedImage, setExpandedImage] = useState<string | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
@@ -58,7 +61,7 @@ export default function GalleryClient() {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') setExpandedImage(null);
         };
-        
+
         if (expandedImage) {
             document.body.style.overflow = 'hidden';
             window.addEventListener('keydown', handleKeyDown);
@@ -72,7 +75,7 @@ export default function GalleryClient() {
         };
     }, [expandedImage]);
 
-    // Parallax Scroll logic (always running, binds to containerRef when active)
+    // Parallax Scroll logic - only runs when SubGalleryView is mounted with containerRef
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ['start end', 'end start']
@@ -86,71 +89,6 @@ export default function GalleryClient() {
     const leftColumnPhotos = activePhotos.filter((_, i) => i % 2 === 0);
     const rightColumnPhotos = activePhotos.filter((_, i) => i % 2 !== 0);
 
-    // Render Split-Screen Landing Selector
-    if (activeCategory === 'landing') {
-        return (
-            <div className={styles.galleryContainer}>
-                <div className={styles.noiseOverlay}></div>
-                <Header />
-
-                <main className={styles.portalContainer}>
-                    {/* ICM Panel */}
-                    <div 
-                        className={styles.portalPanel}
-                        onClick={() => setActiveCategory('icm')}
-                    >
-                        <div className={styles.panelBackground}>
-                            <Image 
-                                src="/images/gallery/icm-cover.jpg"
-                                alt="ICM Gallery Cover"
-                                fill
-                                className="object-cover"
-                                priority
-                            />
-                        </div>
-                        <div className={styles.panelOverlay}></div>
-                        <div className={styles.panelContent}>
-                            <span className={styles.panelSubtitle}>Collection I</span>
-                            <h1 className={styles.panelTitle}>ICM</h1>
-                            <p className={styles.panelDescription}>
-                                Painting with light to capture how a moment actually feels. A study of motion, abstraction, and hidden textures.
-                            </p>
-                            <span className={styles.panelLink}>Enter Gallery</span>
-                        </div>
-                    </div>
-
-                    {/* Monochrome Panel */}
-                    <div 
-                        className={styles.portalPanel}
-                        onClick={() => setActiveCategory('bw')}
-                    >
-                        <div className={styles.panelBackground}>
-                            <Image 
-                                src="/images/gallery/mono-cover.jpeg"
-                                alt="Monochrome Gallery Cover"
-                                fill
-                                className="object-cover"
-                                priority
-                            />
-                        </div>
-                        <div className={styles.panelOverlay}></div>
-                        <div className={styles.panelContent}>
-                            <span className={`${styles.panelSubtitle} ${styles.panelSubtitleMono}`}>Collection II</span>
-                            <h1 className={styles.panelTitle}>Monochrome</h1>
-                            <p className={styles.panelDescription}>
-                                Stripping away color to reveal the raw geometry of light, shadow, and quiet details.
-                            </p>
-                            <span className={`${styles.panelLink} ${styles.panelLinkMono}`}>Enter Gallery</span>
-                        </div>
-                    </div>
-                </main>
-
-                <Navigation />
-            </div>
-        );
-    }
-
-    // Render Active Grid Subgallery
     return (
         <div className={styles.galleryContainer}>
             <div className={styles.noiseOverlay}></div>
@@ -165,12 +103,16 @@ export default function GalleryClient() {
                     >
                         {/* Elegant Breadcrumb Navigation */}
                         <div className={styles.breadcrumb}>
-                            <span 
-                                className={styles.breadcrumbLink} 
-                                onClick={() => setActiveCategory('landing')}
+                            <button
+                                type="button"
+                                className={styles.breadcrumbLink}
+                                onClick={() => {
+                                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                                    onBack();
+                                }}
                             >
                                 COLLECTIONS
-                            </span>
+                            </button>
                             <span className={styles.breadcrumbSeparator}>/</span>
                             <span className={`${styles.breadcrumbCurrent} ${activeCategory === 'bw' ? styles.breadcrumbCurrentMono : ''}`}>
                                 {activeCategory === 'icm' ? 'ICM' : 'MONOCHROME'}
@@ -199,8 +141,8 @@ export default function GalleryClient() {
                     {/* Left Column */}
                     <motion.div className={styles.column} style={{ y: yLeft }}>
                         {leftColumnPhotos.map((photo) => (
-                            <motion.div 
-                                key={photo.id} 
+                            <motion.div
+                                key={photo.id}
                                 className={styles.imageWrapper}
                                 layoutId={`gallery-image-${photo.id}`}
                                 initial={{ opacity: 0, y: 100 }}
@@ -209,7 +151,7 @@ export default function GalleryClient() {
                                 transition={{ duration: 0.8, ease: "easeOut" }}
                                 onClick={() => setExpandedImage(photo.src)}
                             >
-                                <Image 
+                                <Image
                                     src={photo.src}
                                     alt={photo.alt}
                                     width={photo.width}
@@ -224,8 +166,8 @@ export default function GalleryClient() {
                     {/* Right Column */}
                     <motion.div className={styles.column} style={{ y: yRight }}>
                         {rightColumnPhotos.map((photo) => (
-                            <motion.div 
-                                key={photo.id} 
+                            <motion.div
+                                key={photo.id}
                                 className={styles.imageWrapper}
                                 layoutId={`gallery-image-${photo.id}`}
                                 initial={{ opacity: 0, y: 100 }}
@@ -234,7 +176,7 @@ export default function GalleryClient() {
                                 transition={{ duration: 0.8, ease: "easeOut" }}
                                 onClick={() => setExpandedImage(photo.src)}
                             >
-                                <Image 
+                                <Image
                                     src={photo.src}
                                     alt={photo.alt}
                                     width={photo.width}
@@ -275,4 +217,102 @@ export default function GalleryClient() {
             <Navigation />
         </div>
     );
+}
+
+export default function GalleryClient() {
+    // Navigation State: 'landing' shows split portal, 'icm' or 'bw' loads active subgallery
+    const [activeCategory, setActiveCategory] = useState<'landing' | 'icm' | 'bw'>('landing');
+
+    const handleSelectCategory = (category: 'icm' | 'bw') => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        setActiveCategory(category);
+    };
+
+    const handleBack = () => {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+        setActiveCategory('landing');
+    };
+
+    // Render Split-Screen Landing Selector
+    if (activeCategory === 'landing') {
+        return (
+            <div className={styles.galleryContainer}>
+                <div className={styles.noiseOverlay}></div>
+                <Header />
+
+                <main className={styles.portalContainer}>
+                    {/* ICM Panel */}
+                    <div
+                        className={styles.portalPanel}
+                        onClick={() => handleSelectCategory('icm')}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                handleSelectCategory('icm');
+                            }
+                        }}
+                    >
+                        <div className={styles.panelBackground}>
+                            <Image
+                                src="/images/gallery/icm-cover.jpg"
+                                alt="ICM Gallery Cover"
+                                fill
+                                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                className="object-cover"
+                                priority
+                            />
+                        </div>
+                        <div className={styles.panelOverlay}></div>
+                        <div className={styles.panelContent}>
+                            <span className={styles.panelSubtitle}>Collection I</span>
+                            <h1 className={styles.panelTitle}>ICM</h1>
+                            <p className={styles.panelDescription}>
+                                Painting with light to capture how a moment actually feels. A study of motion, abstraction, and hidden textures.
+                            </p>
+                            <span className={styles.panelLink}>Enter Gallery</span>
+                        </div>
+                    </div>
+
+                    {/* Monochrome Panel */}
+                    <div
+                        className={styles.portalPanel}
+                        onClick={() => handleSelectCategory('bw')}
+                        role="button"
+                        tabIndex={0}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                handleSelectCategory('bw');
+                            }
+                        }}
+                    >
+                        <div className={styles.panelBackground}>
+                            <Image
+                                src="/images/gallery/mono-cover.jpeg"
+                                alt="Monochrome Gallery Cover"
+                                fill
+                                style={{ objectFit: 'cover', objectPosition: 'center' }}
+                                className="object-cover"
+                                priority
+                            />
+                        </div>
+                        <div className={styles.panelOverlay}></div>
+                        <div className={styles.panelContent}>
+                            <span className={`${styles.panelSubtitle} ${styles.panelSubtitleMono}`}>Collection II</span>
+                            <h1 className={styles.panelTitle}>Monochrome</h1>
+                            <p className={styles.panelDescription}>
+                                Stripping away color to reveal the raw geometry of light, shadow, and quiet details.
+                            </p>
+                            <span className={`${styles.panelLink} ${styles.panelLinkMono}`}>Enter Gallery</span>
+                        </div>
+                    </div>
+                </main>
+
+                <Navigation />
+            </div>
+        );
+    }
+
+    // Render Active Grid Subgallery
+    return <SubGalleryView activeCategory={activeCategory} onBack={handleBack} />;
 }
