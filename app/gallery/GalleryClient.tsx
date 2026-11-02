@@ -7,7 +7,7 @@ import Navigation from '@/components/Navigation';
 import Header from '@/components/Header';
 import styles from './gallery.module.css';
 
-type GalleryCategory = 'icm' | 'bw' | 'panhock' | 'look-closer';
+type GalleryCategory = 'icm' | 'bw' | 'panhock' | 'look-closer' | 'project-gallery';
 
 interface PhotoItem {
     id: number;
@@ -124,6 +124,70 @@ const panhockPhotos: PhotoItem[] = [
     { id: 321, src: "/images/gallery/panhock/panhock-21.jpeg", width: 3024, height: 3780, alt: "PanHock 21" },
 ];
 
+// 5. Project Gallery (Mixed Media, Pencil, Colored Pencil, Collage, Painting, Alcohol Ink)
+const projectGalleryPhotos: PhotoItem[] = [
+    { id: 401, src: "/images/gallery/project-gallery/project-gallery-1.jpeg", width: 3024, height: 4235, alt: "Project Gallery 01" },
+    { id: 402, src: "/images/gallery/project-gallery/project-gallery-2.jpeg", width: 3024, height: 4235, alt: "Project Gallery 02" },
+    { id: 403, src: "/images/gallery/project-gallery/project-gallery-3.jpeg", width: 3024, height: 4235, alt: "Project Gallery 03" },
+    { id: 404, src: "/images/gallery/project-gallery/project-gallery-4.jpeg", width: 3024, height: 4235, alt: "Project Gallery 04" },
+    { id: 405, src: "/images/gallery/project-gallery/project-gallery-5.jpeg", width: 3024, height: 4235, alt: "Project Gallery 05" },
+    { id: 406, src: "/images/gallery/project-gallery/project-gallery-6.jpeg", width: 3024, height: 4235, alt: "Project Gallery 06" },
+    { id: 407, src: "/images/gallery/project-gallery/project-gallery-7.jpeg", width: 3024, height: 4032, alt: "Project Gallery 07" },
+    { id: 408, src: "/images/gallery/project-gallery/project-gallery-8.jpeg", width: 3024, height: 4032, alt: "Project Gallery 08" },
+    { id: 409, src: "/images/gallery/project-gallery/project-gallery-9.jpeg", width: 3024, height: 4354, alt: "Project Gallery 09" },
+    { id: 410, src: "/images/gallery/project-gallery/project-gallery-10.jpeg", width: 4032, height: 2725, alt: "Project Gallery 10" },
+    { id: 411, src: "/images/gallery/project-gallery/project-gallery-11.jpeg", width: 4032, height: 3024, alt: "Project Gallery 11" },
+    { id: 412, src: "/images/gallery/project-gallery/project-gallery-12.jpeg", width: 4032, height: 2753, alt: "Project Gallery 12" },
+    { id: 413, src: "/images/gallery/project-gallery/project-gallery-13.jpeg", width: 3024, height: 4028, alt: "Project Gallery 13" },
+    { id: 414, src: "/images/gallery/project-gallery/project-gallery-14.jpeg", width: 4032, height: 2722, alt: "Project Gallery 14" },
+    { id: 415, src: "/images/gallery/project-gallery/project-gallery-15.jpeg", width: 3024, height: 3780, alt: "Project Gallery 15" },
+    { id: 416, src: "/images/gallery/project-gallery/project-gallery-16.jpeg", width: 3024, height: 4032, alt: "Project Gallery 16" },
+    { id: 417, src: "/images/gallery/project-gallery/project-gallery-17.jpeg", width: 4032, height: 2923, alt: "Project Gallery 17" },
+    { id: 418, src: "/images/gallery/project-gallery/project-gallery-18.jpeg", width: 3024, height: 3914, alt: "Project Gallery 18" },
+    { id: 419, src: "/images/gallery/project-gallery/project-gallery-19.jpeg", width: 4032, height: 2844, alt: "Project Gallery 19" },
+    { id: 420, src: "/images/gallery/project-gallery/project-gallery-20.jpeg", width: 4032, height: 2542, alt: "Project Gallery 20" },
+    { id: 421, src: "/images/gallery/project-gallery/project-gallery-21.jpeg", width: 3024, height: 4384, alt: "Project Gallery 21" },
+    { id: 422, src: "/images/gallery/project-gallery/project-gallery-22.jpeg", width: 4032, height: 2718, alt: "Project Gallery 22" },
+    { id: 423, src: "/images/gallery/project-gallery/project-gallery-23.jpeg", width: 4032, height: 2202, alt: "Project Gallery 23" },
+    { id: 424, src: "/images/gallery/project-gallery/project-gallery-24.jpeg", width: 3024, height: 4100, alt: "Project Gallery 24" },
+    { id: 425, src: "/images/gallery/project-gallery/project-gallery-26.jpeg", width: 4032, height: 4032, alt: "Project Gallery 25" },
+    { id: 426, src: "/images/gallery/project-gallery/project-gallery-27.jpeg", width: 4032, height: 2649, alt: "Project Gallery 26" },
+    { id: 427, src: "/images/gallery/project-gallery/project-gallery-28.jpeg", width: 4032, height: 2788, alt: "Project Gallery 27" },
+    { id: 428, src: "/images/gallery/project-gallery/project-gallery-29.jpeg", width: 3024, height: 4070, alt: "Project Gallery 28" },
+    { id: 429, src: "/images/gallery/project-gallery/project-gallery-30.jpeg", width: 4032, height: 2775, alt: "Project Gallery 29" },
+    { id: 430, src: "/images/gallery/project-gallery/project-gallery-31.jpeg", width: 4032, height: 4032, alt: "Project Gallery 30" },
+    { id: 431, src: "/images/gallery/project-gallery/project-gallery-32.jpeg", width: 3024, height: 3784, alt: "Project Gallery 31" },
+    { id: 432, src: "/images/gallery/project-gallery/project-gallery-33.jpeg", width: 4032, height: 3024, alt: "Project Gallery 32" },
+    { id: 433, src: "/images/gallery/project-gallery/project-gallery-34.jpeg", width: 4032, height: 3345, alt: "Project Gallery 33" },
+    { id: 434, src: "/images/gallery/project-gallery/project-gallery-35.jpeg", width: 3024, height: 3978, alt: "Project Gallery 34" },
+    { id: 435, src: "/images/gallery/project-gallery/project-gallery-36.jpeg", width: 3024, height: 4057, alt: "Project Gallery 35" },
+    { id: 436, src: "/images/gallery/project-gallery/project-gallery-37.jpeg", width: 4032, height: 2599, alt: "Project Gallery 36" },
+    { id: 437, src: "/images/gallery/project-gallery/project-gallery-38.jpeg", width: 3024, height: 4032, alt: "Project Gallery 37" },
+    { id: 438, src: "/images/gallery/project-gallery/project-gallery-39.jpeg", width: 4032, height: 3024, alt: "Project Gallery 38" },
+    { id: 439, src: "/images/gallery/project-gallery/project-gallery-40.jpeg", width: 3024, height: 3725, alt: "Project Gallery 39" },
+    { id: 440, src: "/images/gallery/project-gallery/project-gallery-41.jpeg", width: 3024, height: 4032, alt: "Project Gallery 40" },
+    { id: 441, src: "/images/gallery/project-gallery/project-gallery-42.jpeg", width: 4032, height: 3109, alt: "Project Gallery 41" },
+    { id: 442, src: "/images/gallery/project-gallery/project-gallery-43.jpeg", width: 4032, height: 2655, alt: "Project Gallery 42" },
+    { id: 443, src: "/images/gallery/project-gallery/project-gallery-44.jpeg", width: 4032, height: 2649, alt: "Project Gallery 43" },
+    { id: 444, src: "/images/gallery/project-gallery/project-gallery-45.jpeg", width: 4032, height: 3437, alt: "Project Gallery 44" },
+    { id: 445, src: "/images/gallery/project-gallery/project-gallery-46.jpeg", width: 4032, height: 3109, alt: "Project Gallery 45" },
+    { id: 446, src: "/images/gallery/project-gallery/project-gallery-47.jpeg", width: 4032, height: 3194, alt: "Project Gallery 46" },
+    { id: 447, src: "/images/gallery/project-gallery/project-gallery-48.jpeg", width: 3024, height: 3027, alt: "Project Gallery 47" },
+    { id: 448, src: "/images/gallery/project-gallery/project-gallery-49.jpeg", width: 3024, height: 4032, alt: "Project Gallery 48" },
+    { id: 449, src: "/images/gallery/project-gallery/project-gallery-50.jpeg", width: 4032, height: 3175, alt: "Project Gallery 49" },
+    { id: 450, src: "/images/gallery/project-gallery/project-gallery-51.jpeg", width: 4032, height: 2829, alt: "Project Gallery 50" },
+    { id: 451, src: "/images/gallery/project-gallery/project-gallery-52.jpeg", width: 4032, height: 2092, alt: "Project Gallery 51" },
+    { id: 452, src: "/images/gallery/project-gallery/project-gallery-53.jpeg", width: 3024, height: 4268, alt: "Project Gallery 52" },
+    { id: 453, src: "/images/gallery/project-gallery/project-gallery-54.jpeg", width: 3024, height: 3867, alt: "Project Gallery 53" },
+    { id: 454, src: "/images/gallery/project-gallery/project-gallery-55.jpeg", width: 4032, height: 4032, alt: "Project Gallery 54" },
+    { id: 455, src: "/images/gallery/project-gallery/project-gallery-56.jpeg", width: 3024, height: 3679, alt: "Project Gallery 55" },
+    { id: 456, src: "/images/gallery/project-gallery/project-gallery-57.jpeg", width: 3024, height: 3814, alt: "Project Gallery 56" },
+    { id: 457, src: "/images/gallery/project-gallery/project-gallery-58.jpeg", width: 3024, height: 4241, alt: "Project Gallery 57" },
+    { id: 458, src: "/images/gallery/project-gallery/project-gallery-59.jpeg", width: 4032, height: 3024, alt: "Project Gallery 58" },
+    { id: 459, src: "/images/gallery/project-gallery/project-gallery-60.jpeg", width: 4032, height: 3244, alt: "Project Gallery 59" },
+    { id: 460, src: "/images/gallery/project-gallery/project-gallery-61.jpeg", width: 3024, height: 3384, alt: "Project Gallery 60" },
+];
+
 const GALLERY_META: Record<
     GalleryCategory,
     {
@@ -202,9 +266,25 @@ const GALLERY_META: Record<
         ),
         photos: lookCloserPhotos,
     },
+    'project-gallery': {
+        collectionLabel: 'Collection V',
+        shortTitle: 'Project Gallery',
+        breadcrumb: 'PROJECT GALLERY',
+        headingLines: ['THE', 'PROJECT GALLERY'],
+        coverImage: '/images/gallery/project-gallery/project-gallery-8.jpeg',
+        coverAlt: 'Project Gallery Cover',
+        portalDescription:
+            'Mixed-media studio explorations across pencil, colored pencil, collage, painting, and alcohol ink.',
+        statement: (
+            <>
+                A tactile studio exploration across <strong>pencil, colored pencil, collage, painting, and alcohol ink</strong>—celebrating texture, mark-making, and the joy of creative experimentation.
+            </>
+        ),
+        photos: projectGalleryPhotos,
+    },
 };
 
-const PORTAL_ORDER: GalleryCategory[] = ['icm', 'bw', 'panhock', 'look-closer'];
+const PORTAL_ORDER: GalleryCategory[] = ['icm', 'bw', 'panhock', 'look-closer', 'project-gallery'];
 
 interface SubGalleryViewProps {
     activeCategory: GalleryCategory;
