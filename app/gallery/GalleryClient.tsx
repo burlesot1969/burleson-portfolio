@@ -1,13 +1,14 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Header from '@/components/Header';
 import styles from './gallery.module.css';
 
 type GalleryCategory = 'icm' | 'bw' | 'panhock' | 'look-closer';
+type LayoutMode = 'editorial' | 'single';
 
 interface PhotoItem {
     id: number;
@@ -206,6 +207,45 @@ const GALLERY_META: Record<
 
 const PORTAL_ORDER: GalleryCategory[] = ['icm', 'bw', 'panhock', 'look-closer'];
 
+/**
+ * Groups photos into an Aspect-Ratio-Aware Editorial Salon Hang:
+ * - Landscape / Panoramic photos (width > height) and every 5th vertical showcase piece
+ *   get a full-width hero row so wide compositions are never squeezed into narrow columns.
+ * - Remaining vertical/square works pair into oversized 2-up diptych rows.
+ */
+function buildEditorialRows(photos: PhotoItem[]): Array<{ type: 'full'; photo: PhotoItem } | { type: 'pair'; photos: [PhotoItem, PhotoItem] }> {
+    const rows: Array<{ type: 'full'; photo: PhotoItem } | { type: 'pair'; photos: [PhotoItem, PhotoItem] }> = [];
+    let pendingVertical: PhotoItem | null = null;
+    let verticalPairCount = 0;
+
+    for (let i = 0; i < photos.length; i++) {
+        const photo = photos[i];
+        const isLandscape = photo.width > photo.height * 1.05;
+
+        if (isLandscape) {
+            rows.push({ type: 'full', photo });
+        } else {
+            // Every 3rd vertical row (after 2 pairs), showcase one vertical as a full-stage hero if no landscapes have appeared
+            if (!pendingVertical && verticalPairCount === 2) {
+                rows.push({ type: 'full', photo });
+                verticalPairCount = 0;
+            } else if (!pendingVertical) {
+                pendingVertical = photo;
+            } else {
+                rows.push({ type: 'pair', photos: [pendingVertical, photo] });
+                pendingVertical = null;
+                verticalPairCount++;
+            }
+        }
+    }
+
+    if (pendingVertical) {
+        rows.push({ type: 'full', photo: pendingVertical });
+    }
+
+    return rows;
+}
+
 interface SubGalleryViewProps {
     activeCategory: GalleryCategory;
     onBack: () => void;
@@ -214,10 +254,11 @@ interface SubGalleryViewProps {
 
 function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGalleryViewProps) {
     const [expandedImage, setExpandedImage] = useState<string | null>(null);
-    const containerRef = useRef<HTMLDivElement>(null);
+    const [layoutMode, setLayoutMode] = useState<LayoutMode>('editorial');
 
     const meta = GALLERY_META[activeCategory];
     const activePhotos = meta.photos;
+    const editorialRows = buildEditorialRows(activePhotos);
 
     // Escape Key & Arrow Navigation for Modal
     useEffect(() => {
@@ -250,19 +291,6 @@ function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGallery
         };
     }, [expandedImage, activePhotos]);
 
-    // Parallax Scroll logic
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ['start end', 'end start'],
-    });
-
-    const yLeft = useTransform(scrollYProgress, [0, 1], [100, -300]);
-    const yRight = useTransform(scrollYProgress, [0, 1], [250, -100]);
-
-    // Split active array into columns
-    const leftColumnPhotos = activePhotos.filter((_, i) => i % 2 === 0);
-    const rightColumnPhotos = activePhotos.filter((_, i) => i % 2 !== 0);
-
     return (
         <div className={styles.galleryContainer}>
             <div className={styles.noiseOverlay}></div>
@@ -276,7 +304,7 @@ function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGallery
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        {/* Elegant Breadcrumb & Quick Collection Switcher */}
+                        {/* Elegant Breadcrumb */}
                         <div className={styles.breadcrumb}>
                             <button
                                 type="button"
@@ -317,60 +345,122 @@ function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGallery
                         </h1>
 
                         <p className={styles.artistStatement}>{meta.statement}</p>
+
+                        {/* View Mode Toggle: Editorial Salon vs. Full-Stage Single Exhibition */}
+                        <div className={styles.viewModeBar}>
+                            <span className={styles.viewModeLabel}>DISPLAY:</span>
+                            <button
+                                type="button"
+                                onClick={() => setLayoutMode('editorial')}
+                                className={`${styles.viewModeBtn} ${
+                                    layoutMode === 'editorial' ? styles.viewModeBtnActive : ''
+                                }`}
+                            >
+                                Salon Rhythm (Hero + Pair)
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setLayoutMode('single')}
+                                className={`${styles.viewModeBtn} ${
+                                    layoutMode === 'single' ? styles.viewModeBtnActive : ''
+                                }`}
+                            >
+                                Full-Stage (1 Per Row)
+                            </button>
+                        </div>
                     </motion.div>
                 </div>
 
-                <div className={styles.parallaxContainer} ref={containerRef}>
-                    {/* Left Column */}
-                    <motion.div className={styles.column} style={{ y: yLeft }}>
-                        {leftColumnPhotos.map((photo) => (
+                {/* Full-Stage Single-Column Exhibition View */}
+                {layoutMode === 'single' ? (
+                    <div className={styles.singleStageContainer}>
+                        {activePhotos.map((photo) => (
                             <motion.div
                                 key={photo.id}
-                                className={styles.imageWrapper}
-                                layoutId={`gallery-image-${photo.id}`}
-                                initial={{ opacity: 0, y: 100 }}
+                                className={styles.singleStageItem}
+                                initial={{ opacity: 0, y: 60 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true, margin: '-50px' }}
-                                transition={{ duration: 0.8, ease: 'easeOut' }}
+                                transition={{ duration: 0.7, ease: 'easeOut' }}
                                 onClick={() => setExpandedImage(photo.src)}
                             >
-                                <Image
-                                    src={photo.src}
-                                    alt={photo.alt}
-                                    width={photo.width}
-                                    height={photo.height}
-                                    className={styles.photo}
-                                    sizes="(max-width: 768px) 100vw, 50vw"
-                                />
+                                <div className={styles.singleStageFrame}>
+                                    <Image
+                                        src={photo.src}
+                                        alt={photo.alt}
+                                        width={photo.width}
+                                        height={photo.height}
+                                        className={styles.singleStagePhoto}
+                                        sizes="95vw"
+                                    />
+                                </div>
                             </motion.div>
                         ))}
-                    </motion.div>
+                    </div>
+                ) : (
+                    /* Aspect-Ratio-Aware Editorial Salon Hang */
+                    <div className={styles.editorialContainer}>
+                        {editorialRows.map((row, idx) => {
+                            if (row.type === 'full') {
+                                const photo = row.photo;
+                                const isLandscape = photo.width > photo.height * 1.05;
+                                return (
+                                    <motion.div
+                                        key={`row-full-${photo.id}-${idx}`}
+                                        className={styles.editorialHeroRow}
+                                        initial={{ opacity: 0, y: 60 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true, margin: '-50px' }}
+                                        transition={{ duration: 0.7, ease: 'easeOut' }}
+                                        onClick={() => setExpandedImage(photo.src)}
+                                    >
+                                        <div
+                                            className={
+                                                isLandscape
+                                                    ? styles.editorialLandscapeFrame
+                                                    : styles.editorialVerticalHeroFrame
+                                            }
+                                        >
+                                            <Image
+                                                src={photo.src}
+                                                alt={photo.alt}
+                                                width={photo.width}
+                                                height={photo.height}
+                                                className={styles.editorialPhoto}
+                                                sizes="94vw"
+                                            />
+                                        </div>
+                                    </motion.div>
+                                );
+                            }
 
-                    {/* Right Column */}
-                    <motion.div className={styles.column} style={{ y: yRight }}>
-                        {rightColumnPhotos.map((photo) => (
-                            <motion.div
-                                key={photo.id}
-                                className={styles.imageWrapper}
-                                layoutId={`gallery-image-${photo.id}`}
-                                initial={{ opacity: 0, y: 100 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: '-50px' }}
-                                transition={{ duration: 0.8, ease: 'easeOut' }}
-                                onClick={() => setExpandedImage(photo.src)}
-                            >
-                                <Image
-                                    src={photo.src}
-                                    alt={photo.alt}
-                                    width={photo.width}
-                                    height={photo.height}
-                                    className={styles.photo}
-                                    sizes="(max-width: 768px) 100vw, 50vw"
-                                />
-                            </motion.div>
-                        ))}
-                    </motion.div>
-                </div>
+                            return (
+                                <div key={`row-pair-${row.photos[0].id}-${idx}`} className={styles.editorialPairRow}>
+                                    {row.photos.map((photo) => (
+                                        <motion.div
+                                            key={photo.id}
+                                            className={styles.imageWrapper}
+                                            initial={{ opacity: 0, y: 60 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            viewport={{ once: true, margin: '-50px' }}
+                                            transition={{ duration: 0.7, ease: 'easeOut' }}
+                                            onClick={() => setExpandedImage(photo.src)}
+                                        >
+                                            <Image
+                                                src={photo.src}
+                                                alt={photo.alt}
+                                                width={photo.width}
+                                                height={photo.height}
+                                                className={styles.photo}
+                                                sizes="(max-width: 768px) 96vw, 46vw"
+                                            />
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
             </main>
 
             {/* Image Expansion Modal */}
@@ -379,16 +469,15 @@ function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGallery
                     className="fixed inset-0 z-[10000] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md cursor-pointer"
                     onClick={() => setExpandedImage(null)}
                 >
-                    <div className="relative max-w-6xl max-h-[90vh] w-full h-full flex items-center justify-center">
+                    <div className="relative max-w-7xl max-h-[92vh] w-full h-full flex items-center justify-center">
                         <button
-                            className="absolute -top-12 right-0 text-white hover:text-zinc-400 text-xl font-mono"
+                            className="absolute -top-10 right-0 text-white hover:text-zinc-400 text-sm font-mono tracking-widest"
                             aria-label="Close modal"
                             onClick={() => setExpandedImage(null)}
                         >
-                            [X] CLOSE
+                            [ESC / CLOSE]
                         </button>
                         <motion.img
-                            layoutId={`gallery-image-${activePhotos.find((p) => p.src === expandedImage)?.id}`}
                             src={expandedImage}
                             alt="Expanded Photo"
                             className="object-contain max-w-full max-h-full drop-shadow-2xl"
@@ -467,7 +556,7 @@ export default function GalleryClient() {
         );
     }
 
-    // Render Active Grid Subgallery
+    // Render Active Subgallery
     return (
         <SubGalleryView
             activeCategory={activeCategory}

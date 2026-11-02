@@ -11,7 +11,7 @@
     min-height: 100vh;
     padding-bottom: 8rem;
     position: relative;
-    overflow: hidden; /* For parallax bounds */
+    overflow: hidden;
 }
 
 /* Background Noise overlay similar to secret war */
@@ -233,10 +233,52 @@
     font-weight: 700;
 }
 
+/* View Mode Toggle Bar */
+.viewModeBar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 2.25rem;
+    padding: 0.35rem 0.5rem 0.35rem 0.9rem;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.viewModeLabel {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: rgba(201, 209, 217, 0.55);
+    margin-right: 0.25rem;
+}
+
+.viewModeBtn {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.4rem 0.85rem;
+    border-radius: 9999px;
+    color: rgba(201, 209, 217, 0.75);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.viewModeBtn:hover {
+    color: #ffffff;
+}
+
+.viewModeBtnActive {
+    background: rgba(255, 255, 255, 0.16);
+    color: #ffffff;
+    font-weight: 700;
+}
+
 /* Header / Statement area */
 .headerSection {
-    padding: 9rem 2rem 2rem;
-    max-width: 800px;
+    padding: 8.5rem 2rem 3.5rem;
+    max-width: 860px;
     margin: 0 auto;
     text-align: center;
     position: relative;
@@ -250,7 +292,7 @@
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: -0.02em;
-    margin-bottom: 2rem;
+    margin-bottom: 1.75rem;
 }
 
 .accent {
@@ -265,33 +307,125 @@
     margin-bottom: 0;
 }
 
-/* Parallax Grid */
-.parallaxContainer {
-    max-width: 1200px;
+/* ==========================================================================
+   1. EDITORIAL SALON HANG (Ultra-Wide 94vw Canvas: Full-Width Landscapes + Large Pairs)
+   ========================================================================== */
+.editorialContainer {
+    width: 94vw;
+    max-width: 1760px;
     margin: 0 auto;
-    padding: 0 2rem;
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: flex-start;
-    padding-bottom: 20vh;
-}
-
-.column {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
+    gap: 3.5rem;
+    padding-bottom: 12vh;
+}
+
+.editorialHeroRow {
     width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.editorialLandscapeFrame {
+    width: 100%;
+    max-width: 1760px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+    background-color: #0b0e13;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.editorialVerticalHeroFrame {
+    width: auto;
+    max-width: min(1100px, 94vw);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 16px 50px rgba(0, 0, 0, 0.6);
+    background-color: #0b0e13;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.editorialVerticalHeroFrame img {
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.editorialLandscapeFrame:hover,
+.editorialVerticalHeroFrame:hover {
+    transform: scale(1.01);
+    box-shadow: 0 20px 60px rgba(255, 255, 255, 0.14);
+}
+
+.editorialPhoto {
+    width: 100%;
+    height: auto;
+    max-height: 88vh;
+    object-fit: contain;
+    display: block;
+}
+
+.editorialPairRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+/* ==========================================================================
+   2. FULL-STAGE SINGLE EXHIBITION (1 Giant Viewport-Fitted Work Per Row)
+   ========================================================================== */
+.singleStageContainer {
+    width: 94vw;
+    max-width: 1680px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5rem;
+    padding-bottom: 12vh;
+}
+
+.singleStageItem {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.singleStageFrame {
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
+    background-color: #0b0e13;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+}
+
+.singleStageFrame:hover {
+    transform: scale(1.01);
+    box-shadow: 0 24px 70px rgba(255, 255, 255, 0.15);
+}
+
+.singleStagePhoto {
+    width: auto;
+    height: auto;
+    max-width: 94vw;
+    max-height: 88vh;
+    object-fit: contain;
+    display: block;
 }
 
 .imageWrapper {
     width: 100%;
     position: relative;
-    border-radius: 4px;
+    border-radius: 6px;
     overflow: hidden;
     cursor: pointer;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 12px 45px rgba(0, 0, 0, 0.55);
     background-color: #111;
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
@@ -307,12 +441,12 @@
 }
 
 .imageWrapper:hover {
-    transform: scale(1.02);
-    box-shadow: 0 15px 50px rgba(255, 255, 255, 0.15);
+    transform: scale(1.015);
+    box-shadow: 0 18px 55px rgba(255, 255, 255, 0.15);
 }
 
 .imageWrapper:hover::after {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.08);
 }
 
 .photo {
@@ -336,7 +470,7 @@
     }
 }
 
-/* Mobile: Stacked / Scrollable Panels */
+/* Mobile: Single-Column Full Width */
 @media (max-width: 768px) {
     .portalContainer {
         flex-direction: column;
@@ -365,9 +499,15 @@
         font-size: 2rem;
     }
 
-    .parallaxContainer {
+    .editorialPairRow {
         grid-template-columns: 1fr;
-        gap: 2rem;
+        gap: 2.25rem;
+    }
+
+    .editorialContainer,
+    .singleStageContainer {
+        width: 94vw;
+        gap: 2.25rem;
     }
 
     .galleryTitle {
