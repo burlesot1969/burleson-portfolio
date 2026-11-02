@@ -404,6 +404,22 @@ function SubGalleryView({ activeCategory, onBack }: SubGalleryViewProps) {
                         </motion.div>
                     ))}
                 </div>
+
+                {/* Bottom Return-to-Galleries Footer across all 5 collections */}
+                <div className={styles.bottomReturnSection}>
+                    <div className={styles.bottomDivider} />
+                    <button
+                        type="button"
+                        className={styles.bottomReturnButton}
+                        onClick={() => {
+                            window.scrollTo({ top: 0, behavior: 'instant' });
+                            onBack();
+                        }}
+                    >
+                        <span className={styles.bottomReturnArrow}>←</span>
+                        <span>BACK TO GALLERIES</span>
+                    </button>
+                </div>
             </main>
 
             {/* Image Expansion Modal */}
