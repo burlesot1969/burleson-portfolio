@@ -126,12 +126,12 @@ const panhockPhotos: PhotoItem[] = [
 
 // 5. Project Gallery (Mixed Media, Pencil, Colored Pencil, Collage, Painting, Alcohol Ink)
 const projectGalleryPhotos: PhotoItem[] = [
-    { id: 401, src: "/images/gallery/project-gallery/project-gallery-1.jpeg", width: 3024, height: 4235, alt: "Project Gallery 01" },
-    { id: 402, src: "/images/gallery/project-gallery/project-gallery-2.jpeg", width: 3024, height: 4235, alt: "Project Gallery 02" },
-    { id: 403, src: "/images/gallery/project-gallery/project-gallery-3.jpeg", width: 3024, height: 4235, alt: "Project Gallery 03" },
-    { id: 404, src: "/images/gallery/project-gallery/project-gallery-4.jpeg", width: 3024, height: 4235, alt: "Project Gallery 04" },
-    { id: 405, src: "/images/gallery/project-gallery/project-gallery-5.jpeg", width: 3024, height: 4235, alt: "Project Gallery 05" },
-    { id: 406, src: "/images/gallery/project-gallery/project-gallery-6.jpeg", width: 3024, height: 4235, alt: "Project Gallery 06" },
+    { id: 401, src: "/images/gallery/project-gallery/project-gallery-1.jpeg", width: 3024, height: 4125, alt: "Project Gallery 01" },
+    { id: 402, src: "/images/gallery/project-gallery/project-gallery-2.jpeg", width: 3024, height: 4124, alt: "Project Gallery 02" },
+    { id: 403, src: "/images/gallery/project-gallery/project-gallery-3.jpeg", width: 3024, height: 4124, alt: "Project Gallery 03" },
+    { id: 404, src: "/images/gallery/project-gallery/project-gallery-4.jpeg", width: 3024, height: 3024, alt: "Project Gallery 04" },
+    { id: 405, src: "/images/gallery/project-gallery/project-gallery-5.jpeg", width: 3024, height: 3024, alt: "Project Gallery 05" },
+    { id: 406, src: "/images/gallery/project-gallery/project-gallery-6.jpeg", width: 3024, height: 3024, alt: "Project Gallery 06" },
     { id: 407, src: "/images/gallery/project-gallery/project-gallery-7.jpeg", width: 3024, height: 4032, alt: "Project Gallery 07" },
     { id: 408, src: "/images/gallery/project-gallery/project-gallery-8.jpeg", width: 3024, height: 4032, alt: "Project Gallery 08" },
     { id: 409, src: "/images/gallery/project-gallery/project-gallery-9.jpeg", width: 3024, height: 4354, alt: "Project Gallery 09" },
@@ -371,38 +371,44 @@ function SubGalleryView({ activeCategory, onBack }: SubGalleryViewProps) {
 
                 {/* Unified Full-Stage Single-Column Exhibition matching ICM Gallery dimensions */}
                 <div className={styles.singleStageContainer}>
-                    {activePhotos.map((photo) => (
-                        <motion.div
-                            key={photo.id}
-                            className={styles.singleStageItem}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: '-50px' }}
-                            transition={{ duration: 0.7, ease: 'easeOut' }}
-                        >
-                            <div
-                                className={styles.singleStageFrame}
-                                role="button"
-                                tabIndex={0}
-                                onClick={() => setExpandedImage(photo.src)}
-                                onKeyDown={(e) => {
-                                    if (e.key === 'Enter' || e.key === ' ') {
-                                        e.preventDefault();
-                                        setExpandedImage(photo.src);
-                                    }
-                                }}
+                    {activePhotos.map((photo) => {
+                        const aspect = photo.width / photo.height;
+                        const stageWidthVh = (84 * aspect).toFixed(1);
+
+                        return (
+                            <motion.div
+                                key={photo.id}
+                                className={styles.singleStageItem}
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-50px' }}
+                                transition={{ duration: 0.7, ease: 'easeOut' }}
                             >
-                                <Image
-                                    src={photo.src}
-                                    alt={photo.alt}
-                                    width={photo.width}
-                                    height={photo.height}
-                                    className={styles.singleStagePhoto}
-                                    sizes="(max-width: 768px) 94vw, 1060px"
-                                />
-                            </div>
-                        </motion.div>
-                    ))}
+                                <div
+                                    className={styles.singleStageFrame}
+                                    style={{ width: `min(${stageWidthVh}vh, 92vw, 1280px)` }}
+                                    role="button"
+                                    tabIndex={0}
+                                    onClick={() => setExpandedImage(photo.src)}
+                                    onKeyDown={(e) => {
+                                        if (e.key === 'Enter' || e.key === ' ') {
+                                            e.preventDefault();
+                                            setExpandedImage(photo.src);
+                                        }
+                                    }}
+                                >
+                                    <Image
+                                        src={photo.src}
+                                        alt={photo.alt}
+                                        width={photo.width}
+                                        height={photo.height}
+                                        className={styles.singleStagePhoto}
+                                        sizes="(max-width: 768px) 94vw, 1280px"
+                                    />
+                                </div>
+                            </motion.div>
+                        );
+                    })}
                 </div>
 
                 {/* Bottom Return-to-Galleries Footer across all 5 collections */}

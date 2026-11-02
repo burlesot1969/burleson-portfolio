@@ -232,7 +232,7 @@
 /* Unified Full-Stage Single-Column Exhibition matching ICM Gallery dimensions */
 .singleStageContainer {
     width: 92vw;
-    max-width: 1060px;
+    max-width: 1400px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -249,7 +249,6 @@
 }
 
 .singleStageFrame {
-    width: min(1060px, 90vw);
     position: relative;
     border-radius: 6px;
     overflow: hidden;
@@ -402,10 +401,6 @@
     .singleStageContainer {
         width: 94vw;
         gap: 2.5rem;
-    }
-
-    .singleStageFrame {
-        width: 94vw;
     }
 
     .galleryTitle {
