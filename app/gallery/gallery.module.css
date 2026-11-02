@@ -237,7 +237,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 5rem;
+    gap: 5.5rem;
     padding-bottom: 12vh;
 }
 
@@ -248,7 +248,9 @@
     cursor: pointer;
 }
 
-.singleStageFrame {
+.singleStageFrameLandscape,
+.singleStageFramePortrait,
+.singleStageFrameTall {
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
@@ -256,17 +258,31 @@
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
-.singleStageFrame:hover {
+/* Horizontal / Landscape works fill up to 1500px wide */
+.singleStageFrameLandscape {
+    width: min(1500px, 92vw);
+}
+
+/* Square and 3:4 / 4:5 Portrait works fill up to 1060px wide */
+.singleStageFramePortrait {
+    width: min(1060px, 90vw);
+}
+
+/* Tall 9:16 Vertical joiners fill up to 920px wide (instead of shrinking to 400px) */
+.singleStageFrameTall {
+    width: min(920px, 90vw);
+}
+
+.singleStageFrameLandscape:hover,
+.singleStageFramePortrait:hover,
+.singleStageFrameTall:hover {
     transform: scale(1.01);
     box-shadow: 0 24px 70px rgba(255, 255, 255, 0.15);
 }
 
 .singleStagePhoto {
-    width: auto;
+    width: 100%;
     height: auto;
-    max-width: min(1600px, 92vw);
-    max-height: 86vh;
-    object-fit: contain;
     display: block;
 }
 
@@ -318,9 +334,10 @@
         gap: 2.5rem;
     }
 
-    .singleStagePhoto {
-        max-width: 94vw;
-        max-height: 82vh;
+    .singleStageFrameLandscape,
+    .singleStageFramePortrait,
+    .singleStageFrameTall {
+        width: 94vw;
     }
 
     .galleryTitle {

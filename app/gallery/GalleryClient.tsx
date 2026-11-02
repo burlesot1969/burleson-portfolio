@@ -291,28 +291,38 @@ function SubGalleryView({ activeCategory, onBack }: SubGalleryViewProps) {
 
                 {/* Unified Full-Stage Single-Column Exhibition across all 4 galleries */}
                 <div className={styles.singleStageContainer}>
-                    {activePhotos.map((photo) => (
-                        <motion.div
-                            key={photo.id}
-                            className={styles.singleStageItem}
-                            initial={{ opacity: 0, y: 50 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true, margin: '-50px' }}
-                            transition={{ duration: 0.7, ease: 'easeOut' }}
-                            onClick={() => setExpandedImage(photo.src)}
-                        >
-                            <div className={styles.singleStageFrame}>
-                                <Image
-                                    src={photo.src}
-                                    alt={photo.alt}
-                                    width={photo.width}
-                                    height={photo.height}
-                                    className={styles.singleStagePhoto}
-                                    sizes="94vw"
-                                />
-                            </div>
-                        </motion.div>
-                    ))}
+                    {activePhotos.map((photo) => {
+                        const aspect = photo.width / photo.height;
+                        const frameClass =
+                            aspect > 1.05
+                                ? styles.singleStageFrameLandscape
+                                : aspect >= 0.7
+                                ? styles.singleStageFramePortrait
+                                : styles.singleStageFrameTall;
+
+                        return (
+                            <motion.div
+                                key={photo.id}
+                                className={styles.singleStageItem}
+                                initial={{ opacity: 0, y: 50 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: '-50px' }}
+                                transition={{ duration: 0.7, ease: 'easeOut' }}
+                                onClick={() => setExpandedImage(photo.src)}
+                            >
+                                <div className={frameClass}>
+                                    <Image
+                                        src={photo.src}
+                                        alt={photo.alt}
+                                        width={photo.width}
+                                        height={photo.height}
+                                        className={styles.singleStagePhoto}
+                                        sizes="94vw"
+                                    />
+                                </div>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             </main>
 
