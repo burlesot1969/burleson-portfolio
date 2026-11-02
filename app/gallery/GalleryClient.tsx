@@ -17,32 +17,32 @@ interface PhotoItem {
     alt: string;
 }
 
-// 1. Color ICM Photos (with true native aspect ratios)
+// 1. Color ICM Photos (normalized to 3024 base scale)
 const icmPhotos: PhotoItem[] = [
     { id: 1, src: "/images/gallery/abstract-01.jpg", width: 4032, height: 3024, alt: "Abstract 01" },
     { id: 2, src: "/images/gallery/abstract-02.JPG", width: 3024, height: 4032, alt: "Abstract 02" },
     { id: 3, src: "/images/gallery/abstract-03.JPG", width: 3024, height: 4032, alt: "Abstract 03" },
-    { id: 4, src: "/images/gallery/abstract-04.jpeg", width: 2810, height: 3747, alt: "Abstract 04" },
+    { id: 4, src: "/images/gallery/abstract-04.jpeg", width: 3024, height: 4032, alt: "Abstract 04" },
     { id: 5, src: "/images/gallery/abstract-05.jpg", width: 4032, height: 3024, alt: "Abstract 05" },
     { id: 6, src: "/images/gallery/abstract-06.JPG", width: 3024, height: 4032, alt: "Abstract 06" },
-    { id: 7, src: "/images/gallery/abstract-07.JPG", width: 1794, height: 2393, alt: "Abstract 07" },
-    { id: 8, src: "/images/gallery/abstract-08.JPG", width: 2709, height: 3608, alt: "Abstract 08" },
+    { id: 7, src: "/images/gallery/abstract-07.JPG", width: 3024, height: 4034, alt: "Abstract 07" },
+    { id: 8, src: "/images/gallery/abstract-08.JPG", width: 3024, height: 4027, alt: "Abstract 08" },
     { id: 9, src: "/images/gallery/abstract-09.JPG", width: 3024, height: 4032, alt: "Abstract 09" },
-    { id: 10, src: "/images/gallery/abstract-10.JPG", width: 2716, height: 3751, alt: "Abstract 10" },
-    { id: 11, src: "/images/gallery/abstract-11.JPG", width: 2809, height: 3823, alt: "Abstract 11" },
+    { id: 10, src: "/images/gallery/abstract-10.JPG", width: 3024, height: 4176, alt: "Abstract 10" },
+    { id: 11, src: "/images/gallery/abstract-11.JPG", width: 3024, height: 4116, alt: "Abstract 11" },
     { id: 12, src: "/images/gallery/abstract-12.JPG", width: 3024, height: 4032, alt: "Abstract 12" },
-    { id: 13, src: "/images/gallery/abstract-13.JPG", width: 1275, height: 863, alt: "Abstract 13" },
-    { id: 14, src: "/images/gallery/abstract-14.JPG", width: 983, height: 1311, alt: "Abstract 14" },
+    { id: 13, src: "/images/gallery/abstract-13.JPG", width: 4032, height: 2729, alt: "Abstract 13" },
+    { id: 14, src: "/images/gallery/abstract-14.JPG", width: 3024, height: 4033, alt: "Abstract 14" },
     { id: 15, src: "/images/gallery/abstract-15.JPG", width: 3024, height: 4032, alt: "Abstract 15" },
     { id: 16, src: "/images/gallery/abstract-16.JPG", width: 3024, height: 4032, alt: "Abstract 16" },
     { id: 17, src: "/images/gallery/abstract-17.JPG", width: 3024, height: 4032, alt: "Abstract 17" },
-    { id: 18, src: "/images/gallery/abstract-18.JPG", width: 983, height: 1311, alt: "Abstract 18" },
+    { id: 18, src: "/images/gallery/abstract-18.JPG", width: 3024, height: 4033, alt: "Abstract 18" },
 ];
 
-// 2. Custom Black & White Photos
+// 2. Custom Black & White Photos (normalized to ICM 3024/4032 dimensions)
 const monochromePhotos: PhotoItem[] = [
-    { id: 101, src: "/images/gallery/monochrome/mono-1.jpeg", width: 5712, height: 4284, alt: "Monochrome 01" },
-    { id: 102, src: "/images/gallery/monochrome/mono-2.jpeg", width: 4284, height: 5712, alt: "Monochrome 02" },
+    { id: 101, src: "/images/gallery/monochrome/mono-1.jpeg", width: 4032, height: 3024, alt: "Monochrome 01" },
+    { id: 102, src: "/images/gallery/monochrome/mono-2.jpeg", width: 3024, height: 4032, alt: "Monochrome 02" },
     { id: 103, src: "/images/gallery/monochrome/mono-3.jpeg", width: 3024, height: 4032, alt: "Monochrome 03" },
     { id: 104, src: "/images/gallery/monochrome/mono-4.jpeg", width: 3024, height: 4032, alt: "Monochrome 04" },
     { id: 105, src: "/images/gallery/monochrome/mono-5.jpeg", width: 3024, height: 4032, alt: "Monochrome 05" },
@@ -53,75 +53,75 @@ const monochromePhotos: PhotoItem[] = [
     { id: 110, src: "/images/gallery/monochrome/mono-10.jpeg", width: 4032, height: 3024, alt: "Monochrome 10" },
     { id: 111, src: "/images/gallery/monochrome/mono-11.jpeg", width: 3024, height: 4032, alt: "Monochrome 11" },
     { id: 112, src: "/images/gallery/monochrome/mono-12.jpeg", width: 3024, height: 4032, alt: "Monochrome 12" },
-    { id: 113, src: "/images/gallery/monochrome/mono-13.jpeg", width: 2998, height: 3998, alt: "Monochrome 13" },
-    { id: 114, src: "/images/gallery/monochrome/mono-14.jpeg", width: 4284, height: 5712, alt: "Monochrome 14" },
+    { id: 113, src: "/images/gallery/monochrome/mono-13.jpeg", width: 3024, height: 4033, alt: "Monochrome 13" },
+    { id: 114, src: "/images/gallery/monochrome/mono-14.jpeg", width: 3024, height: 4032, alt: "Monochrome 14" },
 ];
 
-// 3. Look Closer (Macro & Intimate Details)
+// 3. Look Closer (normalized to ICM 3024/4032 dimensions)
 const lookCloserPhotos: PhotoItem[] = [
-    { id: 201, src: "/images/gallery/look-closer/look-closer-1.jpeg", width: 960, height: 1280, alt: "Look Closer 01" },
-    { id: 202, src: "/images/gallery/look-closer/look-closer-2.jpeg", width: 960, height: 1280, alt: "Look Closer 02" },
-    { id: 203, src: "/images/gallery/look-closer/look-closer-3.jpeg", width: 960, height: 1280, alt: "Look Closer 03" },
-    { id: 204, src: "/images/gallery/look-closer/look-closer-4.jpeg", width: 993, height: 1280, alt: "Look Closer 04" },
-    { id: 205, src: "/images/gallery/look-closer/look-closer-5.jpeg", width: 961, height: 1280, alt: "Look Closer 05" },
-    { id: 206, src: "/images/gallery/look-closer/look-closer-6.jpeg", width: 960, height: 1280, alt: "Look Closer 06" },
-    { id: 207, src: "/images/gallery/look-closer/look-closer-7.jpeg", width: 1280, height: 960, alt: "Look Closer 07" },
-    { id: 208, src: "/images/gallery/look-closer/look-closer-8.jpeg", width: 960, height: 1280, alt: "Look Closer 08" },
-    { id: 209, src: "/images/gallery/look-closer/look-closer-9.jpeg", width: 960, height: 1280, alt: "Look Closer 09" },
-    { id: 210, src: "/images/gallery/look-closer/look-closer-10.jpeg", width: 960, height: 1280, alt: "Look Closer 10" },
-    { id: 211, src: "/images/gallery/look-closer/look-closer-11.jpeg", width: 960, height: 1280, alt: "Look Closer 11" },
-    { id: 212, src: "/images/gallery/look-closer/look-closer-12.jpeg", width: 960, height: 1280, alt: "Look Closer 12" },
-    { id: 213, src: "/images/gallery/look-closer/look-closer-13.jpeg", width: 1280, height: 960, alt: "Look Closer 13" },
-    { id: 214, src: "/images/gallery/look-closer/look-closer-14.jpeg", width: 1280, height: 960, alt: "Look Closer 14" },
-    { id: 215, src: "/images/gallery/look-closer/look-closer-15.jpeg", width: 960, height: 1280, alt: "Look Closer 15" },
-    { id: 216, src: "/images/gallery/look-closer/look-closer-16.jpeg", width: 1280, height: 960, alt: "Look Closer 16" },
-    { id: 217, src: "/images/gallery/look-closer/look-closer-17.jpeg", width: 960, height: 1280, alt: "Look Closer 17" },
-    { id: 218, src: "/images/gallery/look-closer/look-closer-18.jpeg", width: 1280, height: 960, alt: "Look Closer 18" },
-    { id: 219, src: "/images/gallery/look-closer/look-closer-19.jpeg", width: 960, height: 1280, alt: "Look Closer 19" },
-    { id: 220, src: "/images/gallery/look-closer/look-closer-20.jpeg", width: 960, height: 1280, alt: "Look Closer 20" },
-    { id: 221, src: "/images/gallery/look-closer/look-closer-21.jpeg", width: 960, height: 1280, alt: "Look Closer 21" },
-    { id: 222, src: "/images/gallery/look-closer/look-closer-22.jpeg", width: 1280, height: 960, alt: "Look Closer 22" },
-    { id: 223, src: "/images/gallery/look-closer/look-closer-23.jpeg", width: 1280, height: 960, alt: "Look Closer 23" },
-    { id: 224, src: "/images/gallery/look-closer/look-closer-24.jpeg", width: 896, height: 1195, alt: "Look Closer 24" },
-    { id: 225, src: "/images/gallery/look-closer/look-closer-25.jpeg", width: 960, height: 1280, alt: "Look Closer 25" },
-    { id: 226, src: "/images/gallery/look-closer/look-closer-26.jpeg", width: 960, height: 1280, alt: "Look Closer 26" },
-    { id: 227, src: "/images/gallery/look-closer/look-closer-27.jpeg", width: 960, height: 1280, alt: "Look Closer 27" },
-    { id: 228, src: "/images/gallery/look-closer/look-closer-28.jpeg", width: 960, height: 1280, alt: "Look Closer 28" },
-    { id: 229, src: "/images/gallery/look-closer/look-closer-29.jpeg", width: 960, height: 1280, alt: "Look Closer 29" },
-    { id: 230, src: "/images/gallery/look-closer/look-closer-30.jpeg", width: 960, height: 1280, alt: "Look Closer 30" },
-    { id: 231, src: "/images/gallery/look-closer/look-closer-31.jpeg", width: 960, height: 1280, alt: "Look Closer 31" },
-    { id: 232, src: "/images/gallery/look-closer/look-closer-32.jpeg", width: 1280, height: 960, alt: "Look Closer 32" },
-    { id: 233, src: "/images/gallery/look-closer/look-closer-33.jpeg", width: 957, height: 640, alt: "Look Closer 33" },
-    { id: 234, src: "/images/gallery/look-closer/look-closer-34.jpeg", width: 960, height: 1280, alt: "Look Closer 34" },
-    { id: 235, src: "/images/gallery/look-closer/look-closer-35.jpeg", width: 960, height: 1280, alt: "Look Closer 35" },
-    { id: 236, src: "/images/gallery/look-closer/look-closer-36.jpeg", width: 1280, height: 960, alt: "Look Closer 36" },
-    { id: 237, src: "/images/gallery/look-closer/look-closer-37.jpeg", width: 1280, height: 960, alt: "Look Closer 37" },
-    { id: 238, src: "/images/gallery/look-closer/look-closer-38.jpeg", width: 1000, height: 669, alt: "Look Closer 38" },
+    { id: 201, src: "/images/gallery/look-closer/look-closer-1.jpeg", width: 3024, height: 4032, alt: "Look Closer 01" },
+    { id: 202, src: "/images/gallery/look-closer/look-closer-2.jpeg", width: 3024, height: 4032, alt: "Look Closer 02" },
+    { id: 203, src: "/images/gallery/look-closer/look-closer-3.jpeg", width: 3024, height: 4032, alt: "Look Closer 03" },
+    { id: 204, src: "/images/gallery/look-closer/look-closer-4.jpeg", width: 3024, height: 3898, alt: "Look Closer 04" },
+    { id: 205, src: "/images/gallery/look-closer/look-closer-5.jpeg", width: 3024, height: 4028, alt: "Look Closer 05" },
+    { id: 206, src: "/images/gallery/look-closer/look-closer-6.jpeg", width: 3024, height: 4032, alt: "Look Closer 06" },
+    { id: 207, src: "/images/gallery/look-closer/look-closer-7.jpeg", width: 4032, height: 3024, alt: "Look Closer 07" },
+    { id: 208, src: "/images/gallery/look-closer/look-closer-8.jpeg", width: 3024, height: 4032, alt: "Look Closer 08" },
+    { id: 209, src: "/images/gallery/look-closer/look-closer-9.jpeg", width: 3024, height: 4032, alt: "Look Closer 09" },
+    { id: 210, src: "/images/gallery/look-closer/look-closer-10.jpeg", width: 3024, height: 4032, alt: "Look Closer 10" },
+    { id: 211, src: "/images/gallery/look-closer/look-closer-11.jpeg", width: 3024, height: 4032, alt: "Look Closer 11" },
+    { id: 212, src: "/images/gallery/look-closer/look-closer-12.jpeg", width: 3024, height: 4032, alt: "Look Closer 12" },
+    { id: 213, src: "/images/gallery/look-closer/look-closer-13.jpeg", width: 4032, height: 3024, alt: "Look Closer 13" },
+    { id: 214, src: "/images/gallery/look-closer/look-closer-14.jpeg", width: 4032, height: 3024, alt: "Look Closer 14" },
+    { id: 215, src: "/images/gallery/look-closer/look-closer-15.jpeg", width: 3024, height: 4032, alt: "Look Closer 15" },
+    { id: 216, src: "/images/gallery/look-closer/look-closer-16.jpeg", width: 4032, height: 3024, alt: "Look Closer 16" },
+    { id: 217, src: "/images/gallery/look-closer/look-closer-17.jpeg", width: 3024, height: 4032, alt: "Look Closer 17" },
+    { id: 218, src: "/images/gallery/look-closer/look-closer-18.jpeg", width: 4032, height: 3024, alt: "Look Closer 18" },
+    { id: 219, src: "/images/gallery/look-closer/look-closer-19.jpeg", width: 3024, height: 4032, alt: "Look Closer 19" },
+    { id: 220, src: "/images/gallery/look-closer/look-closer-20.jpeg", width: 3024, height: 4032, alt: "Look Closer 20" },
+    { id: 221, src: "/images/gallery/look-closer/look-closer-21.jpeg", width: 3024, height: 4032, alt: "Look Closer 21" },
+    { id: 222, src: "/images/gallery/look-closer/look-closer-22.jpeg", width: 4032, height: 3024, alt: "Look Closer 22" },
+    { id: 223, src: "/images/gallery/look-closer/look-closer-23.jpeg", width: 4032, height: 3024, alt: "Look Closer 23" },
+    { id: 224, src: "/images/gallery/look-closer/look-closer-24.jpeg", width: 3024, height: 4033, alt: "Look Closer 24" },
+    { id: 225, src: "/images/gallery/look-closer/look-closer-25.jpeg", width: 3024, height: 4032, alt: "Look Closer 25" },
+    { id: 226, src: "/images/gallery/look-closer/look-closer-26.jpeg", width: 3024, height: 4032, alt: "Look Closer 26" },
+    { id: 227, src: "/images/gallery/look-closer/look-closer-27.jpeg", width: 3024, height: 4032, alt: "Look Closer 27" },
+    { id: 228, src: "/images/gallery/look-closer/look-closer-28.jpeg", width: 3024, height: 4032, alt: "Look Closer 28" },
+    { id: 229, src: "/images/gallery/look-closer/look-closer-29.jpeg", width: 3024, height: 4032, alt: "Look Closer 29" },
+    { id: 230, src: "/images/gallery/look-closer/look-closer-30.jpeg", width: 3024, height: 4032, alt: "Look Closer 30" },
+    { id: 231, src: "/images/gallery/look-closer/look-closer-31.jpeg", width: 3024, height: 4032, alt: "Look Closer 31" },
+    { id: 232, src: "/images/gallery/look-closer/look-closer-32.jpeg", width: 4032, height: 3024, alt: "Look Closer 32" },
+    { id: 233, src: "/images/gallery/look-closer/look-closer-33.jpeg", width: 4032, height: 2697, alt: "Look Closer 33" },
+    { id: 234, src: "/images/gallery/look-closer/look-closer-34.jpeg", width: 3024, height: 4032, alt: "Look Closer 34" },
+    { id: 235, src: "/images/gallery/look-closer/look-closer-35.jpeg", width: 3024, height: 4032, alt: "Look Closer 35" },
+    { id: 236, src: "/images/gallery/look-closer/look-closer-36.jpeg", width: 4032, height: 3024, alt: "Look Closer 36" },
+    { id: 237, src: "/images/gallery/look-closer/look-closer-37.jpeg", width: 4032, height: 3024, alt: "Look Closer 37" },
+    { id: 238, src: "/images/gallery/look-closer/look-closer-38.jpeg", width: 4032, height: 2697, alt: "Look Closer 38" },
 ];
 
-// 4. PanHock Portfolio (Panography & Hockney-Inspired Joiners)
+// 4. PanHock Portfolio (normalized to ICM 3024/4032 dimensions)
 const panhockPhotos: PhotoItem[] = [
-    { id: 301, src: "/images/gallery/panhock/panhock-1.jpeg", width: 640, height: 800, alt: "PanHock 01" },
-    { id: 302, src: "/images/gallery/panhock/panhock-2.jpeg", width: 553, height: 1000, alt: "PanHock 02" },
-    { id: 303, src: "/images/gallery/panhock/panhock-3.jpeg", width: 600, height: 800, alt: "PanHock 03" },
-    { id: 304, src: "/images/gallery/panhock/panhock-4.jpeg", width: 720, height: 1280, alt: "PanHock 04" },
-    { id: 305, src: "/images/gallery/panhock/panhock-5.jpeg", width: 1000, height: 454, alt: "PanHock 05" },
-    { id: 306, src: "/images/gallery/panhock/panhock-6.jpeg", width: 978, height: 1280, alt: "PanHock 06" },
-    { id: 307, src: "/images/gallery/panhock/panhock-7.jpeg", width: 768, height: 1280, alt: "PanHock 07" },
-    { id: 308, src: "/images/gallery/panhock/panhock-8.jpeg", width: 1280, height: 640, alt: "PanHock 08" },
-    { id: 309, src: "/images/gallery/panhock/panhock-9.jpeg", width: 1280, height: 303, alt: "PanHock 09" },
-    { id: 310, src: "/images/gallery/panhock/panhock-10.jpeg", width: 978, height: 1280, alt: "PanHock 10" },
-    { id: 311, src: "/images/gallery/panhock/panhock-11.jpeg", width: 1280, height: 1280, alt: "PanHock 11" },
-    { id: 312, src: "/images/gallery/panhock/panhock-12.jpeg", width: 569, height: 423, alt: "PanHock 12" },
-    { id: 313, src: "/images/gallery/panhock/panhock-13.jpeg", width: 711, height: 1280, alt: "PanHock 13" },
-    { id: 314, src: "/images/gallery/panhock/panhock-14.jpeg", width: 1280, height: 830, alt: "PanHock 14" },
-    { id: 315, src: "/images/gallery/panhock/panhock-15.jpeg", width: 707, height: 1280, alt: "PanHock 15" },
-    { id: 316, src: "/images/gallery/panhock/panhock-16.jpeg", width: 640, height: 1280, alt: "PanHock 16" },
-    { id: 317, src: "/images/gallery/panhock/panhock-17.jpeg", width: 1280, height: 1251, alt: "PanHock 17" },
-    { id: 318, src: "/images/gallery/panhock/panhock-18.jpeg", width: 1280, height: 1067, alt: "PanHock 18" },
-    { id: 319, src: "/images/gallery/panhock/panhock-19.jpeg", width: 1280, height: 819, alt: "PanHock 19" },
-    { id: 320, src: "/images/gallery/panhock/panhock-20.jpeg", width: 1280, height: 1280, alt: "PanHock 20" },
-    { id: 321, src: "/images/gallery/panhock/panhock-21.jpeg", width: 1024, height: 1280, alt: "PanHock 21" },
+    { id: 301, src: "/images/gallery/panhock/panhock-1.jpeg", width: 3024, height: 3780, alt: "PanHock 01" },
+    { id: 302, src: "/images/gallery/panhock/panhock-2.jpeg", width: 3024, height: 5468, alt: "PanHock 02" },
+    { id: 303, src: "/images/gallery/panhock/panhock-3.jpeg", width: 3024, height: 4032, alt: "PanHock 03" },
+    { id: 304, src: "/images/gallery/panhock/panhock-4.jpeg", width: 3024, height: 5376, alt: "PanHock 04" },
+    { id: 305, src: "/images/gallery/panhock/panhock-5.jpeg", width: 4032, height: 1831, alt: "PanHock 05" },
+    { id: 306, src: "/images/gallery/panhock/panhock-6.jpeg", width: 3024, height: 3958, alt: "PanHock 06" },
+    { id: 307, src: "/images/gallery/panhock/panhock-7.jpeg", width: 3024, height: 5040, alt: "PanHock 07" },
+    { id: 308, src: "/images/gallery/panhock/panhock-8.jpeg", width: 4032, height: 2016, alt: "PanHock 08" },
+    { id: 309, src: "/images/gallery/panhock/panhock-9.jpeg", width: 4032, height: 954, alt: "PanHock 09" },
+    { id: 310, src: "/images/gallery/panhock/panhock-10.jpeg", width: 3024, height: 3958, alt: "PanHock 10" },
+    { id: 311, src: "/images/gallery/panhock/panhock-11.jpeg", width: 3024, height: 3024, alt: "PanHock 11" },
+    { id: 312, src: "/images/gallery/panhock/panhock-12.jpeg", width: 4032, height: 2997, alt: "PanHock 12" },
+    { id: 313, src: "/images/gallery/panhock/panhock-13.jpeg", width: 3024, height: 5444, alt: "PanHock 13" },
+    { id: 314, src: "/images/gallery/panhock/panhock-14.jpeg", width: 4032, height: 2615, alt: "PanHock 14" },
+    { id: 315, src: "/images/gallery/panhock/panhock-15.jpeg", width: 3024, height: 5475, alt: "PanHock 15" },
+    { id: 316, src: "/images/gallery/panhock/panhock-16.jpeg", width: 3024, height: 6048, alt: "PanHock 16" },
+    { id: 317, src: "/images/gallery/panhock/panhock-17.jpeg", width: 3024, height: 2955, alt: "PanHock 17" },
+    { id: 318, src: "/images/gallery/panhock/panhock-18.jpeg", width: 4032, height: 3361, alt: "PanHock 18" },
+    { id: 319, src: "/images/gallery/panhock/panhock-19.jpeg", width: 4032, height: 2580, alt: "PanHock 19" },
+    { id: 320, src: "/images/gallery/panhock/panhock-20.jpeg", width: 3024, height: 3024, alt: "PanHock 20" },
+    { id: 321, src: "/images/gallery/panhock/panhock-21.jpeg", width: 3024, height: 3780, alt: "PanHock 21" },
 ];
 
 const GALLERY_META: Record<
@@ -289,40 +289,30 @@ function SubGalleryView({ activeCategory, onBack }: SubGalleryViewProps) {
                     </motion.div>
                 </div>
 
-                {/* Unified Full-Stage Single-Column Exhibition across all 4 galleries */}
+                {/* Unified Full-Stage Single-Column Exhibition matching ICM Gallery dimensions */}
                 <div className={styles.singleStageContainer}>
-                    {activePhotos.map((photo) => {
-                        const aspect = photo.width / photo.height;
-                        const frameClass =
-                            aspect > 1.05
-                                ? styles.singleStageFrameLandscape
-                                : aspect >= 0.7
-                                ? styles.singleStageFramePortrait
-                                : styles.singleStageFrameTall;
-
-                        return (
-                            <motion.div
-                                key={photo.id}
-                                className={styles.singleStageItem}
-                                initial={{ opacity: 0, y: 50 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: '-50px' }}
-                                transition={{ duration: 0.7, ease: 'easeOut' }}
-                                onClick={() => setExpandedImage(photo.src)}
-                            >
-                                <div className={frameClass}>
-                                    <Image
-                                        src={photo.src}
-                                        alt={photo.alt}
-                                        width={photo.width}
-                                        height={photo.height}
-                                        className={styles.singleStagePhoto}
-                                        sizes="94vw"
-                                    />
-                                </div>
-                            </motion.div>
-                        );
-                    })}
+                    {activePhotos.map((photo) => (
+                        <motion.div
+                            key={photo.id}
+                            className={styles.singleStageItem}
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: '-50px' }}
+                            transition={{ duration: 0.7, ease: 'easeOut' }}
+                            onClick={() => setExpandedImage(photo.src)}
+                        >
+                            <div className={styles.singleStageFrame}>
+                                <Image
+                                    src={photo.src}
+                                    alt={photo.alt}
+                                    width={photo.width}
+                                    height={photo.height}
+                                    className={styles.singleStagePhoto}
+                                    sizes="(max-width: 768px) 94vw, 1060px"
+                                />
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
             </main>
 

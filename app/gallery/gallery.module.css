@@ -229,10 +229,10 @@
     margin-bottom: 0;
 }
 
-/* Unified Full-Stage Single-Column Exhibition */
+/* Unified Full-Stage Single-Column Exhibition matching ICM Gallery dimensions */
 .singleStageContainer {
     width: 92vw;
-    max-width: 1600px;
+    max-width: 1060px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -248,9 +248,8 @@
     cursor: pointer;
 }
 
-.singleStageFrameLandscape,
-.singleStageFramePortrait,
-.singleStageFrameTall {
+.singleStageFrame {
+    width: min(1060px, 90vw);
     border-radius: 6px;
     overflow: hidden;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.65);
@@ -258,24 +257,7 @@
     transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
 }
 
-/* Horizontal / Landscape works fill up to 1500px wide */
-.singleStageFrameLandscape {
-    width: min(1500px, 92vw);
-}
-
-/* Square and 3:4 / 4:5 Portrait works fill up to 1060px wide */
-.singleStageFramePortrait {
-    width: min(1060px, 90vw);
-}
-
-/* Tall 9:16 Vertical joiners fill up to 920px wide (instead of shrinking to 400px) */
-.singleStageFrameTall {
-    width: min(920px, 90vw);
-}
-
-.singleStageFrameLandscape:hover,
-.singleStageFramePortrait:hover,
-.singleStageFrameTall:hover {
+.singleStageFrame:hover {
     transform: scale(1.01);
     box-shadow: 0 24px 70px rgba(255, 255, 255, 0.15);
 }
@@ -334,9 +316,7 @@
         gap: 2.5rem;
     }
 
-    .singleStageFrameLandscape,
-    .singleStageFramePortrait,
-    .singleStageFrameTall {
+    .singleStageFrame {
         width: 94vw;
     }
 
