@@ -8,7 +8,6 @@ import Header from '@/components/Header';
 import styles from './gallery.module.css';
 
 type GalleryCategory = 'icm' | 'bw' | 'panhock' | 'look-closer';
-type LayoutMode = 'editorial' | 'single';
 
 interface PhotoItem {
     id: number;
@@ -18,26 +17,26 @@ interface PhotoItem {
     alt: string;
 }
 
-// 1. Color ICM Photos (original set)
+// 1. Color ICM Photos (with true native aspect ratios)
 const icmPhotos: PhotoItem[] = [
-    { id: 1, src: "/images/gallery/abstract-01.jpg", width: 800, height: 1200, alt: "Abstract 01" },
-    { id: 2, src: "/images/gallery/abstract-02.JPG", width: 800, height: 800, alt: "Abstract 02" },
-    { id: 3, src: "/images/gallery/abstract-03.JPG", width: 800, height: 1000, alt: "Abstract 03" },
-    { id: 4, src: "/images/gallery/abstract-04.jpeg", width: 800, height: 900, alt: "Abstract 04" },
-    { id: 5, src: "/images/gallery/abstract-05.jpg", width: 800, height: 1200, alt: "Abstract 05" },
-    { id: 6, src: "/images/gallery/abstract-06.JPG", width: 800, height: 800, alt: "Abstract 06" },
-    { id: 7, src: "/images/gallery/abstract-07.JPG", width: 800, height: 1100, alt: "Abstract 07" },
-    { id: 8, src: "/images/gallery/abstract-08.JPG", width: 800, height: 1000, alt: "Abstract 08" },
-    { id: 9, src: "/images/gallery/abstract-09.JPG", width: 800, height: 900, alt: "Abstract 09" },
-    { id: 10, src: "/images/gallery/abstract-10.JPG", width: 800, height: 1200, alt: "Abstract 10" },
-    { id: 11, src: "/images/gallery/abstract-11.JPG", width: 800, height: 800, alt: "Abstract 11" },
-    { id: 12, src: "/images/gallery/abstract-12.JPG", width: 800, height: 1000, alt: "Abstract 12" },
-    { id: 13, src: "/images/gallery/abstract-13.JPG", width: 800, height: 1200, alt: "Abstract 13" },
-    { id: 14, src: "/images/gallery/abstract-14.JPG", width: 800, height: 800, alt: "Abstract 14" },
-    { id: 15, src: "/images/gallery/abstract-15.JPG", width: 800, height: 1000, alt: "Abstract 15" },
-    { id: 16, src: "/images/gallery/abstract-16.JPG", width: 800, height: 900, alt: "Abstract 16" },
-    { id: 17, src: "/images/gallery/abstract-17.JPG", width: 800, height: 1200, alt: "Abstract 17" },
-    { id: 18, src: "/images/gallery/abstract-18.JPG", width: 800, height: 800, alt: "Abstract 18" },
+    { id: 1, src: "/images/gallery/abstract-01.jpg", width: 4032, height: 3024, alt: "Abstract 01" },
+    { id: 2, src: "/images/gallery/abstract-02.JPG", width: 3024, height: 4032, alt: "Abstract 02" },
+    { id: 3, src: "/images/gallery/abstract-03.JPG", width: 3024, height: 4032, alt: "Abstract 03" },
+    { id: 4, src: "/images/gallery/abstract-04.jpeg", width: 2810, height: 3747, alt: "Abstract 04" },
+    { id: 5, src: "/images/gallery/abstract-05.jpg", width: 4032, height: 3024, alt: "Abstract 05" },
+    { id: 6, src: "/images/gallery/abstract-06.JPG", width: 3024, height: 4032, alt: "Abstract 06" },
+    { id: 7, src: "/images/gallery/abstract-07.JPG", width: 1794, height: 2393, alt: "Abstract 07" },
+    { id: 8, src: "/images/gallery/abstract-08.JPG", width: 2709, height: 3608, alt: "Abstract 08" },
+    { id: 9, src: "/images/gallery/abstract-09.JPG", width: 3024, height: 4032, alt: "Abstract 09" },
+    { id: 10, src: "/images/gallery/abstract-10.JPG", width: 2716, height: 3751, alt: "Abstract 10" },
+    { id: 11, src: "/images/gallery/abstract-11.JPG", width: 2809, height: 3823, alt: "Abstract 11" },
+    { id: 12, src: "/images/gallery/abstract-12.JPG", width: 3024, height: 4032, alt: "Abstract 12" },
+    { id: 13, src: "/images/gallery/abstract-13.JPG", width: 1275, height: 863, alt: "Abstract 13" },
+    { id: 14, src: "/images/gallery/abstract-14.JPG", width: 983, height: 1311, alt: "Abstract 14" },
+    { id: 15, src: "/images/gallery/abstract-15.JPG", width: 3024, height: 4032, alt: "Abstract 15" },
+    { id: 16, src: "/images/gallery/abstract-16.JPG", width: 3024, height: 4032, alt: "Abstract 16" },
+    { id: 17, src: "/images/gallery/abstract-17.JPG", width: 3024, height: 4032, alt: "Abstract 17" },
+    { id: 18, src: "/images/gallery/abstract-18.JPG", width: 983, height: 1311, alt: "Abstract 18" },
 ];
 
 // 2. Custom Black & White Photos
@@ -207,58 +206,16 @@ const GALLERY_META: Record<
 
 const PORTAL_ORDER: GalleryCategory[] = ['icm', 'bw', 'panhock', 'look-closer'];
 
-/**
- * Groups photos into an Aspect-Ratio-Aware Editorial Salon Hang:
- * - Landscape / Panoramic photos (width > height) and every 5th vertical showcase piece
- *   get a full-width hero row so wide compositions are never squeezed into narrow columns.
- * - Remaining vertical/square works pair into oversized 2-up diptych rows.
- */
-function buildEditorialRows(photos: PhotoItem[]): Array<{ type: 'full'; photo: PhotoItem } | { type: 'pair'; photos: [PhotoItem, PhotoItem] }> {
-    const rows: Array<{ type: 'full'; photo: PhotoItem } | { type: 'pair'; photos: [PhotoItem, PhotoItem] }> = [];
-    let pendingVertical: PhotoItem | null = null;
-    let verticalPairCount = 0;
-
-    for (let i = 0; i < photos.length; i++) {
-        const photo = photos[i];
-        const isLandscape = photo.width > photo.height * 1.05;
-
-        if (isLandscape) {
-            rows.push({ type: 'full', photo });
-        } else {
-            // Every 3rd vertical row (after 2 pairs), showcase one vertical as a full-stage hero if no landscapes have appeared
-            if (!pendingVertical && verticalPairCount === 2) {
-                rows.push({ type: 'full', photo });
-                verticalPairCount = 0;
-            } else if (!pendingVertical) {
-                pendingVertical = photo;
-            } else {
-                rows.push({ type: 'pair', photos: [pendingVertical, photo] });
-                pendingVertical = null;
-                verticalPairCount++;
-            }
-        }
-    }
-
-    if (pendingVertical) {
-        rows.push({ type: 'full', photo: pendingVertical });
-    }
-
-    return rows;
-}
-
 interface SubGalleryViewProps {
     activeCategory: GalleryCategory;
     onBack: () => void;
-    onSelectCategory: (cat: GalleryCategory) => void;
 }
 
-function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGalleryViewProps) {
+function SubGalleryView({ activeCategory, onBack }: SubGalleryViewProps) {
     const [expandedImage, setExpandedImage] = useState<string | null>(null);
-    const [layoutMode, setLayoutMode] = useState<LayoutMode>('editorial');
 
     const meta = GALLERY_META[activeCategory];
     const activePhotos = meta.photos;
-    const editorialRows = buildEditorialRows(activePhotos);
 
     // Escape Key & Arrow Navigation for Modal
     useEffect(() => {
@@ -304,7 +261,7 @@ function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGallery
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
                     >
-                        {/* Elegant Breadcrumb */}
+                        {/* Clean Minimalist Breadcrumb */}
                         <div className={styles.breadcrumb}>
                             <button
                                 type="button"
@@ -314,28 +271,12 @@ function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGallery
                                     onBack();
                                 }}
                             >
-                                COLLECTIONS
+                                ← COLLECTIONS
                             </button>
                             <span className={styles.breadcrumbSeparator}>/</span>
                             <span className={styles.breadcrumbCurrent}>
                                 {meta.breadcrumb}
                             </span>
-                        </div>
-
-                        {/* Quick Collection Switcher Pills */}
-                        <div className={styles.collectionSwitcher}>
-                            {PORTAL_ORDER.map((cat) => (
-                                <button
-                                    key={cat}
-                                    type="button"
-                                    onClick={() => onSelectCategory(cat)}
-                                    className={`${styles.switcherPill} ${
-                                        activeCategory === cat ? styles.switcherPillActive : ''
-                                    }`}
-                                >
-                                    {GALLERY_META[cat].shortTitle}
-                                </button>
-                            ))}
                         </div>
 
                         <h1 className={styles.galleryTitle}>
@@ -345,122 +286,34 @@ function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGallery
                         </h1>
 
                         <p className={styles.artistStatement}>{meta.statement}</p>
-
-                        {/* View Mode Toggle: Editorial Salon vs. Full-Stage Single Exhibition */}
-                        <div className={styles.viewModeBar}>
-                            <span className={styles.viewModeLabel}>DISPLAY:</span>
-                            <button
-                                type="button"
-                                onClick={() => setLayoutMode('editorial')}
-                                className={`${styles.viewModeBtn} ${
-                                    layoutMode === 'editorial' ? styles.viewModeBtnActive : ''
-                                }`}
-                            >
-                                Salon Rhythm (Hero + Pair)
-                            </button>
-                            <button
-                                type="button"
-                                onClick={() => setLayoutMode('single')}
-                                className={`${styles.viewModeBtn} ${
-                                    layoutMode === 'single' ? styles.viewModeBtnActive : ''
-                                }`}
-                            >
-                                Full-Stage (1 Per Row)
-                            </button>
-                        </div>
                     </motion.div>
                 </div>
 
-                {/* Full-Stage Single-Column Exhibition View */}
-                {layoutMode === 'single' ? (
-                    <div className={styles.singleStageContainer}>
-                        {activePhotos.map((photo) => (
-                            <motion.div
-                                key={photo.id}
-                                className={styles.singleStageItem}
-                                initial={{ opacity: 0, y: 60 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, margin: '-50px' }}
-                                transition={{ duration: 0.7, ease: 'easeOut' }}
-                                onClick={() => setExpandedImage(photo.src)}
-                            >
-                                <div className={styles.singleStageFrame}>
-                                    <Image
-                                        src={photo.src}
-                                        alt={photo.alt}
-                                        width={photo.width}
-                                        height={photo.height}
-                                        className={styles.singleStagePhoto}
-                                        sizes="95vw"
-                                    />
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                ) : (
-                    /* Aspect-Ratio-Aware Editorial Salon Hang */
-                    <div className={styles.editorialContainer}>
-                        {editorialRows.map((row, idx) => {
-                            if (row.type === 'full') {
-                                const photo = row.photo;
-                                const isLandscape = photo.width > photo.height * 1.05;
-                                return (
-                                    <motion.div
-                                        key={`row-full-${photo.id}-${idx}`}
-                                        className={styles.editorialHeroRow}
-                                        initial={{ opacity: 0, y: 60 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true, margin: '-50px' }}
-                                        transition={{ duration: 0.7, ease: 'easeOut' }}
-                                        onClick={() => setExpandedImage(photo.src)}
-                                    >
-                                        <div
-                                            className={
-                                                isLandscape
-                                                    ? styles.editorialLandscapeFrame
-                                                    : styles.editorialVerticalHeroFrame
-                                            }
-                                        >
-                                            <Image
-                                                src={photo.src}
-                                                alt={photo.alt}
-                                                width={photo.width}
-                                                height={photo.height}
-                                                className={styles.editorialPhoto}
-                                                sizes="94vw"
-                                            />
-                                        </div>
-                                    </motion.div>
-                                );
-                            }
-
-                            return (
-                                <div key={`row-pair-${row.photos[0].id}-${idx}`} className={styles.editorialPairRow}>
-                                    {row.photos.map((photo) => (
-                                        <motion.div
-                                            key={photo.id}
-                                            className={styles.imageWrapper}
-                                            initial={{ opacity: 0, y: 60 }}
-                                            whileInView={{ opacity: 1, y: 0 }}
-                                            viewport={{ once: true, margin: '-50px' }}
-                                            transition={{ duration: 0.7, ease: 'easeOut' }}
-                                            onClick={() => setExpandedImage(photo.src)}
-                                        >
-                                            <Image
-                                                src={photo.src}
-                                                alt={photo.alt}
-                                                width={photo.width}
-                                                height={photo.height}
-                                                className={styles.photo}
-                                                sizes="(max-width: 768px) 96vw, 46vw"
-                                            />
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            );
-                        })}
-                    </div>
-                )}
+                {/* Unified Full-Stage Single-Column Exhibition across all 4 galleries */}
+                <div className={styles.singleStageContainer}>
+                    {activePhotos.map((photo) => (
+                        <motion.div
+                            key={photo.id}
+                            className={styles.singleStageItem}
+                            initial={{ opacity: 0, y: 50 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: '-50px' }}
+                            transition={{ duration: 0.7, ease: 'easeOut' }}
+                            onClick={() => setExpandedImage(photo.src)}
+                        >
+                            <div className={styles.singleStageFrame}>
+                                <Image
+                                    src={photo.src}
+                                    alt={photo.alt}
+                                    width={photo.width}
+                                    height={photo.height}
+                                    className={styles.singleStagePhoto}
+                                    sizes="94vw"
+                                />
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
             </main>
 
             {/* Image Expansion Modal */}
@@ -475,7 +328,7 @@ function SubGalleryView({ activeCategory, onBack, onSelectCategory }: SubGallery
                             aria-label="Close modal"
                             onClick={() => setExpandedImage(null)}
                         >
-                            [ESC / CLOSE]
+                            [X] CLOSE
                         </button>
                         <motion.img
                             src={expandedImage}
@@ -557,11 +410,5 @@ export default function GalleryClient() {
     }
 
     // Render Active Subgallery
-    return (
-        <SubGalleryView
-            activeCategory={activeCategory}
-            onBack={handleBack}
-            onSelectCategory={handleSelectCategory}
-        />
-    );
+    return <SubGalleryView activeCategory={activeCategory} onBack={handleBack} />;
 }
