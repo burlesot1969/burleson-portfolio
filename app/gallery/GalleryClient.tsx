@@ -379,9 +379,19 @@ function SubGalleryView({ activeCategory, onBack }: SubGalleryViewProps) {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: '-50px' }}
                             transition={{ duration: 0.7, ease: 'easeOut' }}
-                            onClick={() => setExpandedImage(photo.src)}
                         >
-                            <div className={styles.singleStageFrame}>
+                            <div
+                                className={styles.singleStageFrame}
+                                role="button"
+                                tabIndex={0}
+                                onClick={() => setExpandedImage(photo.src)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        setExpandedImage(photo.src);
+                                    }
+                                }}
+                            >
                                 <Image
                                     src={photo.src}
                                     alt={photo.alt}
